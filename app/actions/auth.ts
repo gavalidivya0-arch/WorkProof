@@ -64,3 +64,7 @@ export async function loginUser(data: z.infer<typeof loginSchema>) {
     throw error; // Let nextjs handle redirects if redirect: true was used, but we use false
   }
 }
+
+export async function signInWithGoogle() {
+  await signIn("google", { redirectTo: "/dashboard" });
+}
