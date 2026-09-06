@@ -1,8 +1,11 @@
 import Link from 'next/link';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Menu } from 'lucide-react';
+import { auth, signOut } from '@/auth';
 
-export function Navbar() {
+export async function Navbar() {
+  const session = await auth();
+  
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 transition-all duration-300">
       <div className="container flex h-16 items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,12 +22,33 @@ export function Navbar() {
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-2 hidden md:flex">
-            <Link href="/login" className={buttonVariants({ variant: "ghost", className: "rounded-full" })}>
-              Log In
-            </Link>
-            <Link href="/signup" className={buttonVariants({ className: "rounded-full shadow-sm hover:shadow-md transition-shadow" })}>
-              Get Started
-            </Link>
+            {session?.user ? (
+              <>
+                <Link href={
+                  session.user.role === 'CLIENT' ? '/client' : 
+                  session.user.role === 'ADMIN' ? '/admin' : '/dashboard'
+                } className={buttonVariants({ variant: "ghost", className: "rounded-full" })}>
+                  Dashboard
+                </Link>
+                <form action={async () => {
+                  "use server";
+                  await signOut();
+                }}>
+                  <Button variant="outline" className="rounded-full shadow-sm hover:shadow-md transition-shadow">
+                    Sign Out
+                  </Button>
+                </form>
+              </>
+            ) : (
+              <>
+                <Link href="/login" className={buttonVariants({ variant: "ghost", className: "rounded-full" })}>
+                  Log In
+                </Link>
+                <Link href="/register" className={buttonVariants({ className: "rounded-full shadow-sm hover:shadow-md transition-shadow" })}>
+                  Get Started
+                </Link>
+              </>
+            )}
           </nav>
           <Button variant="ghost" size="icon" className="md:hidden">
             <Menu className="h-5 w-5" />
