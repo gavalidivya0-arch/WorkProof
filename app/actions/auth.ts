@@ -39,7 +39,7 @@ export async function registerUser(data: z.infer<typeof registerSchema>) {
   }
 }
 
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import { loginSchema } from "@/lib/validations/auth";
 
@@ -67,4 +67,8 @@ export async function loginUser(data: z.infer<typeof loginSchema>) {
 
 export async function signInWithGoogle() {
   await signIn("google", { redirectTo: "/dashboard" });
+}
+
+export async function logoutUser() {
+  await signOut({ redirectTo: "/" });
 }

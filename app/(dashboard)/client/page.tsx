@@ -30,7 +30,7 @@ export default async function ClientDashboard() {
               await signOut({ redirectTo: "/login" });
             }}
           >
-            <Button variant="outline">Sign Out</Button>
+            <Button type="submit" variant="outline">Sign Out</Button>
           </form>
         </div>
       </div>

@@ -62,13 +62,13 @@ export default function RegisterPage() {
                 <Label htmlFor="role">I am a...</Label>
                 <div className="grid grid-cols-2 gap-4">
                   <Label
-                    className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
+                    className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground [&:has(:checked)]:border-primary [&:has(:checked)]:bg-accent cursor-pointer"
                   >
                     <input type="radio" value="FREELANCER" className="sr-only" {...register("role")} />
                     Freelancer
                   </Label>
                   <Label
-                    className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
+                    className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground [&:has(:checked)]:border-primary [&:has(:checked)]:bg-accent cursor-pointer"
                   >
                     <input type="radio" value="CLIENT" className="sr-only" {...register("role")} />
                     Client

@@ -34,7 +34,7 @@ export async function Navbar() {
                   "use server";
                   await signOut();
                 }}>
-                  <Button variant="outline" className="rounded-full shadow-sm hover:shadow-md transition-shadow">
+                  <Button type="submit" variant="outline" className="rounded-full shadow-sm hover:shadow-md transition-shadow">
                     Sign Out
                   </Button>
                 </form>
