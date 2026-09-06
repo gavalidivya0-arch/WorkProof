@@ -34,6 +34,7 @@ enum NotificationType {
 model User {
   id            String    @id @default(cuid())
   name          String?
+  username      String?   @unique
   email         String?   @unique
   emailVerified DateTime?
   image         String?
@@ -72,6 +73,8 @@ model Profile {
   bio       String?  @db.Text
   title     String?  // e.g., "Senior Frontend Developer"
   website   String?
+  github    String?
+  linkedin  String?
   location  String?
   
   createdAt DateTime @default(now())
