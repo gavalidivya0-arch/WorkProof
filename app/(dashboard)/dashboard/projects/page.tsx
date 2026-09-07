@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { ShieldCheck, Clock, ExternalLink, AlertCircle, Plus, Calendar } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
+import { RequestVerificationButton } from "@/components/dashboard/RequestVerificationButton";
 
 export default async function ProjectsPage() {
   const session = await auth();
@@ -103,9 +104,18 @@ export default async function ProjectsPage() {
                   {format(new Date(project.startDate), "MMM yyyy")} 
                   {project.endDate ? ` - ${format(new Date(project.endDate), "MMM yyyy")}` : " - Present"}
                 </div>
-                <Link href={`/dashboard/projects/${project.id}`} className={buttonVariants({ variant: "ghost", size: "sm" })}>
-                  View Details
-                </Link>
+                <div className="flex items-center space-x-2">
+                  {project.verificationStatus === "UNVERIFIED" && (
+                    <RequestVerificationButton 
+                      projectId={project.id} 
+                      defaultClientEmail={project.clientEmail} 
+                      variant="outline" 
+                    />
+                  )}
+                  <Link href={`/dashboard/projects/${project.id}`} className={buttonVariants({ variant: "secondary", size: "sm" })}>
+                    View Details
+                  </Link>
+                </div>
               </CardFooter>
             </Card>
           ))}

@@ -1,9 +1,10 @@
 import { auth } from "@/auth";
 import { redirect, notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { ProjectForm } from "../project-form";
+import { ProjectForm } from "@/app/(dashboard)/dashboard/projects/project-form";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -27,14 +28,14 @@ export default async function EditProjectPage({ params }: { params: Promise<{ id
   }
 
   // Format skills back into a comma-separated string for the form
-  const skillsString = project.skills.map(ps => ps.skill.name).join(", ");
+  const skillsString = project.skills.map((ps: any) => ps.skill.name).join(", ");
 
   const defaultValues = {
     ...project,
     clientEmail: project.clientEmail || "",
     projectUrl: project.projectUrl || "",
     skills: skillsString,
-    deliverables: project.deliverables.map(d => ({
+    deliverables: project.deliverables.map((d: any) => ({
       id: d.id,
       title: d.title,
       description: d.description || "",
@@ -53,6 +54,15 @@ export default async function EditProjectPage({ params }: { params: Promise<{ id
           <p className="text-muted-foreground mt-1">
             Update your project details or add new deliverables.
           </p>
+        </div>
+      </div>
+      
+      <div>
+        <h3 className="font-semibold mb-2">Technologies Used</h3>
+        <div className="flex flex-wrap gap-2">
+          {project.skills.map((ps: any) => (
+            <Badge key={ps.skillId} variant="secondary">{ps.skill.name}</Badge>
+          ))}
         </div>
       </div>
       

@@ -16,7 +16,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
 
-const routes = [
+const freelancerRoutes = [
   { label: "Overview", icon: LayoutDashboard, href: "/dashboard" },
   { label: "Profile", icon: User, href: "/dashboard/profile" },
   { label: "Projects", icon: FolderKanban, href: "/dashboard/projects" },
@@ -25,9 +25,16 @@ const routes = [
   { label: "Settings", icon: Settings, href: "/dashboard/settings" },
 ];
 
+const clientRoutes = [
+  { label: "Overview", icon: LayoutDashboard, href: "/client" },
+  { label: "Verifications", icon: ShieldCheck, href: "/client/verification-requests" },
+  { label: "Settings", icon: Settings, href: "/client/settings" },
+];
+
 export function TopNav({ user }: { user?: any }) {
   const pathname = usePathname();
   const router = useRouter();
+  const routes = user?.role === "CLIENT" ? clientRoutes : freelancerRoutes;
 
   return (
     <div className="flex items-center p-4 h-16 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm sticky top-0 z-50">

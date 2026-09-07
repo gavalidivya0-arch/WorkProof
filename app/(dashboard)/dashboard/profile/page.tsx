@@ -1,7 +1,8 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { getUserById } from "@/lib/db/users";
-import { ProfileForm } from "./profile-form";
+import { ProfileForm } from "@/app/(dashboard)/dashboard/profile/profile-form";
+import { ArrowLeft } from "lucide-react";
 
 export default async function ProfileSettingsPage() {
   const session = await auth();

@@ -5,41 +5,24 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { LayoutDashboard, User, FolderKanban, ShieldCheck, Star, Settings } from "lucide-react";
 
-const routes = [
-  {
-    label: "Overview",
-    icon: LayoutDashboard,
-    href: "/dashboard",
-  },
-  {
-    label: "Profile",
-    icon: User,
-    href: "/dashboard/profile",
-  },
-  {
-    label: "Projects",
-    icon: FolderKanban,
-    href: "/dashboard/projects",
-  },
-  {
-    label: "Verification",
-    icon: ShieldCheck,
-    href: "/dashboard/verification",
-  },
-  {
-    label: "Reviews",
-    icon: Star,
-    href: "/dashboard/reviews",
-  },
-  {
-    label: "Settings",
-    icon: Settings,
-    href: "/dashboard/settings",
-  },
+const freelancerRoutes = [
+  { label: "Overview", icon: LayoutDashboard, href: "/dashboard" },
+  { label: "Profile", icon: User, href: "/dashboard/profile" },
+  { label: "Projects", icon: FolderKanban, href: "/dashboard/projects" },
+  { label: "Verification", icon: ShieldCheck, href: "/dashboard/verification" },
+  { label: "Reviews", icon: Star, href: "/dashboard/reviews" },
+  { label: "Settings", icon: Settings, href: "/dashboard/settings" },
 ];
 
-export function Sidebar() {
+const clientRoutes = [
+  { label: "Overview", icon: LayoutDashboard, href: "/client" },
+  { label: "Verifications", icon: ShieldCheck, href: "/client/verification-requests" },
+  { label: "Settings", icon: Settings, href: "/client/settings" },
+];
+
+export function Sidebar({ role = "FREELANCER" }: { role?: string }) {
   const pathname = usePathname();
+  const routes = role === "CLIENT" ? clientRoutes : freelancerRoutes;
 
   return (
     <div className="space-y-4 py-4 flex flex-col h-full bg-background border-r border-border/40 text-foreground w-64 shadow-sm hidden md:flex">

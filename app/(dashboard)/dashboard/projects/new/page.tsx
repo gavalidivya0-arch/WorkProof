@@ -1,6 +1,8 @@
 import { auth } from "@/auth";
+
+
 import { redirect } from "next/navigation";
-import { ProjectForm } from "../project-form";
+import { ProjectForm } from "@/app/(dashboard)/dashboard/projects/project-form";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
