@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, User, FolderKanban, ShieldCheck, Star, Settings } from "lucide-react";
+import { LayoutDashboard, User, FolderKanban, ShieldCheck, Star, Settings, FileText } from "lucide-react";
 
 const freelancerRoutes = [
   { label: "Overview", icon: LayoutDashboard, href: "/dashboard" },
   { label: "Profile", icon: User, href: "/dashboard/profile" },
   { label: "Projects", icon: FolderKanban, href: "/dashboard/projects" },
+  { label: "Resume", icon: FileText, href: "/dashboard/resume" },
   { label: "Verification", icon: ShieldCheck, href: "/dashboard/verification" },
   { label: "Reviews", icon: Star, href: "/dashboard/reviews" },
   { label: "Settings", icon: Settings, href: "/dashboard/settings" },

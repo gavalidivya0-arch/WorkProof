@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, LayoutDashboard, User, FolderKanban, ShieldCheck, Star, Settings, LogOut, Bell, Shield } from "lucide-react";
+import { Menu, LayoutDashboard, User, FolderKanban, ShieldCheck, Star, Settings, LogOut, Bell, Shield, FileText } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
@@ -18,8 +18,8 @@ import { signOut } from "next-auth/react";
 
 const freelancerRoutes = [
   { label: "Overview", icon: LayoutDashboard, href: "/dashboard" },
-  { label: "Profile", icon: User, href: "/dashboard/profile" },
   { label: "Projects", icon: FolderKanban, href: "/dashboard/projects" },
+  { label: "Resume AI", icon: FileText, href: "/dashboard/resume" },
   { label: "Verification", icon: ShieldCheck, href: "/dashboard/verification" },
   { label: "Reviews", icon: Star, href: "/dashboard/reviews" },
   { label: "Settings", icon: Settings, href: "/dashboard/settings" },

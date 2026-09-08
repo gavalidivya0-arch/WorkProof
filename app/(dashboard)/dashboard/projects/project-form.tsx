@@ -11,7 +11,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { Loader2, Plus, Trash2, Calendar, Link2, Briefcase, Mail } from "lucide-react";
+import { Loader2, Plus, Trash2, Calendar, Link2, Briefcase, Mail, Sparkles } from "lucide-react";
+import { enhanceProjectDescription, extractSkills } from "@/app/actions/ai";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 
@@ -25,12 +26,16 @@ export function ProjectForm({ defaultValues, projectId, isVerified }: ProjectFor
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isEnhancing, setIsEnhancing] = useState(false);
+  const [isExtracting, setIsExtracting] = useState(false);
+  const [suggestedDescription, setSuggestedDescription] = useState("");
+  const [suggestedSkills, setSuggestedSkills] = useState<string[]>([]);
 
   // Format dates for native date input (yyyy-MM-dd)
   const defaultStartDate = defaultValues?.startDate ? format(new Date(defaultValues.startDate), "yyyy-MM-dd") : "";
   const defaultEndDate = defaultValues?.endDate ? format(new Date(defaultValues.endDate), "yyyy-MM-dd") : "";
 
-  const { register, control, handleSubmit, formState: { errors } } = useForm<z.infer<typeof projectSchema>>({
+  const { register, control, handleSubmit, watch, setValue, formState: { errors } } = useForm<z.infer<typeof projectSchema>>({
     // @ts-ignore - TS complains about date strings vs Date objects for native inputs
     resolver: zodResolver(projectSchema),
     // @ts-ignore - TS complains about date strings vs Date objects for native inputs
@@ -79,6 +84,51 @@ export function ProjectForm({ defaultValues, projectId, isVerified }: ProjectFor
     }
   };
 
+  const currentDescription = watch("description");
+
+  const handleEnhance = async () => {
+    if (!currentDescription) {
+      return toast.error("Please enter a brief description first.");
+    }
+    setIsEnhancing(true);
+    const result = await enhanceProjectDescription(currentDescription);
+    setIsEnhancing(false);
+    if (result.error) {
+      toast.error(result.error);
+    } else if (result.text) {
+      setSuggestedDescription(result.text);
+    }
+  };
+
+  const handleExtract = async () => {
+    if (!currentDescription) {
+      return toast.error("Description needed to extract skills.");
+    }
+    setIsExtracting(true);
+    const result = await extractSkills(currentDescription);
+    setIsExtracting(false);
+    if (result.error) {
+      toast.error(result.error);
+    } else if (result.skills) {
+      setSuggestedSkills(result.skills);
+    }
+  };
+
+  const acceptDescription = () => {
+    setValue("description", suggestedDescription);
+    setSuggestedDescription("");
+  };
+  
+  const acceptSkill = (skill: string) => {
+    const current = watch("skills") || "";
+    // Only add if not already present
+    if (!current.toLowerCase().includes(skill.toLowerCase())) {
+      const updated = current ? `${current}, ${skill}` : skill;
+      setValue("skills", updated);
+    }
+    setSuggestedSkills(prev => prev.filter(s => s !== skill));
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit as any)} className="space-y-8">
       {isVerified && (
@@ -104,7 +154,13 @@ export function ProjectForm({ defaultValues, projectId, isVerified }: ProjectFor
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="description">Project Description <span className="text-destructive">*</span></Label>
+        <div className="flex items-center justify-between">
+          <Label htmlFor="description">Project Description <span className="text-destructive">*</span></Label>
+          <Button type="button" variant="ghost" size="sm" onClick={handleEnhance} disabled={isEnhancing} className="text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50">
+            {isEnhancing ? <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> : <Sparkles className="w-4 h-4 mr-1.5" />}
+            Enhance with AI
+          </Button>
+        </div>
         <Textarea 
           id="description" 
           placeholder="Describe the project, the problems you solved, and your impact..." 
@@ -112,13 +168,52 @@ export function ProjectForm({ defaultValues, projectId, isVerified }: ProjectFor
           {...register("description")} 
         />
         {errors.description && <p className="text-sm text-destructive">{errors.description.message}</p>}
+        
+        {suggestedDescription && (
+          <div className="mt-4 p-4 bg-indigo-50/50 border border-indigo-100 rounded-lg">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium text-indigo-900 flex items-center">
+                <Sparkles className="w-3.5 h-3.5 mr-1 text-indigo-500" /> AI Suggestion
+              </span>
+              <div className="flex gap-2">
+                <Button type="button" variant="outline" size="sm" onClick={() => setSuggestedDescription("")}>Discard</Button>
+                <Button type="button" size="sm" className="bg-indigo-600 hover:bg-indigo-700" onClick={acceptDescription}>Accept</Button>
+              </div>
+            </div>
+            <p className="text-sm text-neutral-700 whitespace-pre-wrap">{suggestedDescription}</p>
+          </div>
+        )}
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="skills">Technologies & Skills <span className="text-destructive">*</span></Label>
+        <div className="flex items-center justify-between">
+          <Label htmlFor="skills">Technologies & Skills <span className="text-destructive">*</span></Label>
+          <Button type="button" variant="ghost" size="sm" onClick={handleExtract} disabled={isExtracting} className="text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50">
+            {isExtracting ? <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> : <Sparkles className="w-4 h-4 mr-1.5" />}
+            Extract Skills
+          </Button>
+        </div>
         <Input id="skills" placeholder="e.g. React, Next.js, Tailwind CSS, PostgreSQL" {...register("skills")} />
         <p className="text-xs text-muted-foreground">Separate multiple skills with commas.</p>
         {errors.skills && <p className="text-sm text-destructive">{errors.skills.message}</p>}
+        
+        {suggestedSkills.length > 0 && (
+          <div className="mt-3 p-3 bg-indigo-50/50 border border-indigo-100 rounded-lg">
+            <span className="text-xs font-medium text-indigo-900 block mb-2">Suggested Skills (click to add):</span>
+            <div className="flex flex-wrap gap-2">
+              {suggestedSkills.map(skill => (
+                <button 
+                  key={skill}
+                  type="button"
+                  onClick={() => acceptSkill(skill)}
+                  className="px-2.5 py-1 bg-white border border-indigo-200 text-indigo-700 rounded-full text-xs font-medium hover:bg-indigo-50 hover:border-indigo-300 transition-colors"
+                >
+                  + {skill}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
