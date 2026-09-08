@@ -203,6 +203,9 @@ model Review {
   project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   
   rating      Int      // e.g. 1-5
+  communication Int?   // e.g. 1-5
+  quality       Int?   // e.g. 1-5
+  reliability   Int?   // e.g. 1-5
   text        String?  @db.Text
   isPublic    Boolean  @default(true)
   

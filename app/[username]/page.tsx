@@ -8,6 +8,7 @@ import Link from "next/link";
 import { calculateTrustScore } from "@/lib/db/users";
 import { format } from "date-fns";
 import { ShareProfileButton } from "./ShareProfileButton";
+import { TrustScoreBadge } from "./TrustScoreBadge";
 
 export default async function PublicProfilePage({ params }: { params: Promise<{ username: string }> }) {
   const { username } = await params;
@@ -37,7 +38,7 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
     notFound();
   }
 
-  const { score } = await calculateTrustScore(user.id);
+  const { score, breakdown } = await calculateTrustScore(user.id);
   const allProjects = user.projectsAsFreelancer;
   const verifiedProjects = allProjects.filter((p: any) => p.verificationStatus === "VERIFIED");
   const otherProjects = allProjects.filter((p: any) => p.verificationStatus !== "VERIFIED");
@@ -79,10 +80,7 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
                 <div>
                   <div className="flex flex-wrap items-center gap-3">
                     <h1 className="text-4xl font-bold tracking-tight text-neutral-900">{user.name || username}</h1>
-                    <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200 text-xs py-1">
-                      <ShieldCheck className="w-3 h-3 mr-1" />
-                      Trust Score: {score}/100
-                    </Badge>
+                    <TrustScoreBadge score={score} breakdown={breakdown as any} />
                   </div>
                   <p className="text-xl text-neutral-500 mt-2">{user.profile?.title}</p>
                 </div>
@@ -220,20 +218,45 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
                         )}
 
                         {project.review && (
-                          <div className="bg-neutral-50 rounded-lg p-4 mt-4 border border-neutral-100">
-                            <div className="flex items-center gap-2 mb-2">
-                              <div className="flex">
+                          <div className="bg-neutral-50 rounded-lg p-5 mt-4 border border-neutral-100 space-y-4">
+                            <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
+                              <span className="text-sm font-semibold text-neutral-700">Client Review</span>
+                              <div className="flex items-center gap-1">
+                                <span className="text-xs font-bold mr-1">{project.review.rating}.0</span>
                                 {[1,2,3,4,5].map(star => (
                                   <Star 
                                     key={star} 
-                                    className={`w-3 h-3 ${star <= project.review!.rating ? 'fill-yellow-400 text-yellow-400' : 'text-neutral-200'}`} 
+                                    className={`w-3.5 h-3.5 ${star <= project.review!.rating ? 'fill-yellow-400 text-yellow-400' : 'text-neutral-200'}`} 
                                   />
                                 ))}
                               </div>
-                              <span className="text-xs font-semibold text-neutral-700">Client Review</span>
                             </div>
+                            
+                            {(project.review.communication || project.review.quality || project.review.reliability) && (
+                              <div className="grid grid-cols-3 gap-2 text-xs">
+                                {project.review.communication && (
+                                  <div>
+                                    <p className="text-neutral-500 mb-1">Communication</p>
+                                    <p className="font-semibold text-neutral-800">{project.review.communication}/5</p>
+                                  </div>
+                                )}
+                                {project.review.quality && (
+                                  <div>
+                                    <p className="text-neutral-500 mb-1">Quality</p>
+                                    <p className="font-semibold text-neutral-800">{project.review.quality}/5</p>
+                                  </div>
+                                )}
+                                {project.review.reliability && (
+                                  <div>
+                                    <p className="text-neutral-500 mb-1">Reliability</p>
+                                    <p className="font-semibold text-neutral-800">{project.review.reliability}/5</p>
+                                  </div>
+                                )}
+                              </div>
+                            )}
+
                             {project.review.text && (
-                              <p className="text-sm italic text-neutral-600">"{project.review.text}"</p>
+                              <p className="text-sm italic text-neutral-600 bg-white p-3 rounded-md border border-neutral-100">"{project.review.text}"</p>
                             )}
                           </div>
                         )}

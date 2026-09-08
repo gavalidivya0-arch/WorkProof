@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { redirect, notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { ProjectForm } from "@/app/(dashboard)/dashboard/projects/project-form";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Star } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -19,7 +19,8 @@ export default async function EditProjectPage({ params }: { params: Promise<{ id
       deliverables: true,
       skills: {
         include: { skill: true }
-      }
+      },
+      review: true
     }
   });
 
@@ -69,6 +70,36 @@ export default async function EditProjectPage({ params }: { params: Promise<{ id
       <div className="p-6 md:p-8 glass border border-primary/10 rounded-xl shadow-sm">
         <ProjectForm defaultValues={defaultValues as any} projectId={project.id} isVerified={project.verificationStatus === 'VERIFIED'} />
       </div>
+
+      {project.verificationStatus === 'VERIFIED' && !project.review && (
+        <div className="p-6 md:p-8 bg-emerald-50 border border-emerald-100 rounded-xl shadow-sm space-y-4">
+          <div>
+            <h3 className="font-semibold text-emerald-900 text-lg flex items-center gap-2">
+              <Star className="w-5 h-5 text-emerald-600" />
+              Request Client Review
+            </h3>
+            <p className="text-emerald-700 text-sm mt-1">
+              Your project is verified! You can now request a review from your client to boost your Trust Score.
+              Share this unique link with the client email used during verification.
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <code className="flex-1 bg-white border border-emerald-200 text-emerald-800 p-3 rounded-md text-sm">
+              {process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/reviews/new/{project.id}
+            </code>
+          </div>
+        </div>
+      )}
+
+      {project.review && (
+        <div className="p-6 md:p-8 bg-white border border-neutral-200 rounded-xl shadow-sm space-y-2">
+          <h3 className="font-semibold text-neutral-900 text-lg flex items-center gap-2">
+            <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+            Client Review Received
+          </h3>
+          <p className="text-neutral-500 text-sm">You have already received a review for this project. It is visible on your public profile.</p>
+        </div>
+      )}
     </div>
   );
 }
