@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import { CheckCircle2, ShieldCheck, Calendar, Briefcase, User as UserIcon } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { VerificationClient } from "./VerificationClient";
+import { ReportButton } from "@/components/ReportButton";
 
 interface VerificationPageProps {
   params: {
@@ -47,7 +48,17 @@ export default async function VerificationPage({ params }: VerificationPageProps
   const verifiedByName = verifiedBy.organization?.name || verifiedBy.name || "Client";
   const freelancerName = freelancer.name || freelancer.username || "Freelancer";
   
-  const techStack = project.skills.map((ps: { skill: { name: string } }) => ps.skill.name).join(" · ");
+  let snap = null;
+  try {
+    snap = JSON.parse(verification.projectVersion);
+  } catch(e) {}
+
+  const projectName = snap?.name || project.name;
+  const projectRole = snap?.role || project.role;
+  const projectDesc = snap?.description || project.description;
+  const startDate = snap?.startDate ? new Date(snap.startDate) : project.startDate;
+  const endDate = snap?.endDate ? new Date(snap.endDate) : project.endDate;
+  const techStack = snap?.skills ? snap.skills.join(" · ") : project.skills.map((ps: { skill: { name: string } }) => ps.skill.name).join(" · ");
 
   return (
     <div className="min-h-screen bg-neutral-50 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center font-sans print:bg-white print:py-0">
@@ -73,10 +84,10 @@ export default async function VerificationPage({ params }: VerificationPageProps
           <div className="p-8 sm:p-12">
             <div className="text-center mb-10">
               <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 mb-2">
-                {project.name}
+                {projectName}
               </h2>
               <p className="text-neutral-500 max-w-xl mx-auto">
-                {project.description}
+                {projectDesc}
               </p>
             </div>
 
@@ -97,7 +108,7 @@ export default async function VerificationPage({ params }: VerificationPageProps
                 </div>
                 <div>
                   <p className="text-sm text-neutral-500 font-semibold uppercase tracking-wider mb-1">Role</p>
-                  <p className="font-medium text-lg text-neutral-900">{project.role}</p>
+                  <p className="font-medium text-lg text-neutral-900">{projectRole}</p>
                 </div>
               </div>
 
@@ -108,7 +119,7 @@ export default async function VerificationPage({ params }: VerificationPageProps
                 <div>
                   <p className="text-sm text-neutral-500 font-semibold uppercase tracking-wider mb-1">Duration</p>
                   <p className="font-medium text-lg text-neutral-900">
-                    {format(project.startDate, "MMMM yyyy")} – {project.endDate ? format(project.endDate, "MMMM yyyy") : "Present"}
+                    {format(startDate, "MMMM yyyy")} – {endDate ? format(endDate, "MMMM yyyy") : "Present"}
                   </p>
                 </div>
               </div>
@@ -144,7 +155,10 @@ export default async function VerificationPage({ params }: VerificationPageProps
               </div>
             </div>
 
-            <VerificationClient verificationId={verification.verificationId} />
+            <div className="mt-8 flex items-center justify-between">
+              <VerificationClient verificationId={verification.verificationId} />
+              <ReportButton targetType="VERIFICATION" targetId={verification.id} />
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 // @ts-ignore
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../../prisma/generated/client";
 import crypto from "crypto";
 
 export async function createVerificationRequest(projectId: string, clientEmail: string, message?: string) {

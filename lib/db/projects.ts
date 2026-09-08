@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 // @ts-ignore
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../../prisma/generated/client";
 
 export async function createProject(freelancerId: string, data: Omit<Prisma.ProjectCreateInput, 'freelancer' | 'client'>, clientId?: string) {
   return prisma.project.create({

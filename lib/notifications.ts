@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 // @ts-ignore
-import { NotificationType } from "@prisma/client";
+import { NotificationType } from "../prisma/generated/client";
 
 export async function createNotification({
   userId,

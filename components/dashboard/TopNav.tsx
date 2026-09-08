@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, LayoutDashboard, User, FolderKanban, ShieldCheck, Star, Settings, LogOut, Bell } from "lucide-react";
+import { Menu, LayoutDashboard, User, FolderKanban, ShieldCheck, Star, Settings, LogOut, Bell, Shield } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
@@ -72,6 +72,12 @@ export function TopNav({ user, unreadCount = 0 }: { user?: any; unreadCount?: nu
       </Sheet>
 
       <div className="flex w-full justify-end items-center gap-3">
+        {user?.role === "ADMIN" && (
+          <Link href="/admin" className="hidden md:flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-md hover:bg-indigo-100 transition-colors">
+            <Shield className="w-4 h-4" />
+            Admin Panel
+          </Link>
+        )}
         <Link href="/dashboard/notifications" className="relative group p-2">
           <Bell className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
           {unreadCount > 0 && (

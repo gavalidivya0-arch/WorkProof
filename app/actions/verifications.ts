@@ -118,6 +118,14 @@ export async function processVerification(requestId: string, data: z.infer<typeo
       return { error: "Only authenticated clients can process verifications." };
     }
 
+    const dbUser = await prisma.user.findUnique({ where: { id: session.user.id } });
+    if (!dbUser?.emailVerified) {
+      // In a real production app, we would block them here.
+      // For demo purposes, we will just log it, or we can enforce it.
+      // Let's enforce it to satisfy the requirements for "verified client email".
+      return { error: "Your account must have a verified email address to process verifications. Please verify your email." };
+    }
+
     const validatedData = processVerificationSchema.parse(data);
 
     const verificationRequest = await prisma.verificationRequest.findUnique({

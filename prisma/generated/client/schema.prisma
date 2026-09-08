@@ -1,0 +1,283 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../prisma/generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  FREELANCER
+  CLIENT
+  ADMIN
+}
+
+enum VerificationStatus {
+  UNVERIFIED
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum NotificationType {
+  INFO
+  VERIFICATION_REQUESTED
+  VERIFICATION_APPROVED
+  VERIFICATION_REJECTED
+  SYSTEM_ALERT
+  REVIEW_REQUESTED
+  REVIEW_RECEIVED
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  username      String?   @unique
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  role          Role      @default(FREELANCER)
+
+  // Auth.js relations
+  accounts Account[]
+  sessions Session[]
+
+  // App relations
+  profile      Profile?
+  organization Organization? @relation(fields: [orgId], references: [id])
+  orgId        String?
+
+  userSkills UserSkill[]
+
+  // Freelancer specific
+  projectsAsFreelancer Project[] @relation("FreelancerProjects")
+
+  // Client specific
+  projectsAsClient Project[]      @relation("ClientProjects")
+  verifiedRequests Verification[] @relation("VerifiedByClient")
+
+  notifications    Notification[]
+  submittedReports Report[]       @relation("UserReports")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Profile {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  bio      String? @db.Text
+  title    String? // e.g., "Senior Frontend Developer"
+  website  String?
+  github   String?
+  linkedin String?
+  location String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Organization {
+  id      String  @id @default(cuid())
+  name    String
+  website String?
+  logo    String?
+
+  members User[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Skill {
+  id   String @id @default(cuid())
+  name String @unique
+
+  userSkills    UserSkill[]
+  projectSkills ProjectSkill[]
+
+  createdAt DateTime @default(now())
+}
+
+model UserSkill {
+  id      String @id @default(cuid())
+  userId  String
+  skillId String
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, skillId])
+}
+
+model Project {
+  id          String    @id @default(cuid())
+  name        String
+  description String    @db.Text
+  role        String // e.g. "Lead Developer"
+  projectUrl  String?
+  startDate   DateTime
+  endDate     DateTime?
+
+  verificationStatus VerificationStatus @default(UNVERIFIED)
+
+  freelancerId String
+  freelancer   User   @relation("FreelancerProjects", fields: [freelancerId], references: [id], onDelete: Cascade)
+
+  clientId    String?
+  client      User?   @relation("ClientProjects", fields: [clientId], references: [id], onDelete: SetNull)
+  clientEmail String? // Fallback for uninvited clients
+
+  skills       ProjectSkill[]
+  deliverables ProjectDeliverable[]
+
+  verificationRequest VerificationRequest?
+  verification        Verification?
+  review              Review?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProjectSkill {
+  id        String @id @default(cuid())
+  projectId String
+  skillId   String
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  skill   Skill   @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, skillId])
+}
+
+model ProjectDeliverable {
+  id        String  @id @default(cuid())
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  title       String
+  description String? @db.Text
+  url         String?
+
+  createdAt DateTime @default(now())
+}
+
+model VerificationRequest {
+  id        String  @id @default(cuid())
+  projectId String  @unique
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  clientEmail String
+  token       String  @unique
+  status      String  @default("PENDING") // PENDING, APPROVED, REJECTED
+  message     String? @db.Text
+
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Verification {
+  id             String @id @default(cuid())
+  verificationId String @unique @default(cuid()) // Public facing verifiable ID
+
+  projectId String  @unique
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  verifiedById String
+  verifiedBy   User   @relation("VerifiedByClient", fields: [verifiedById], references: [id])
+
+  projectVersion String  @db.Text // JSON snapshot or hash of the project at time of verification
+  auditLog       String? @db.Text // JSON string for any audit history
+
+  verifiedAt DateTime @default(now())
+}
+
+model Review {
+  id        String  @id @default(cuid())
+  projectId String  @unique
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  rating        Int // e.g. 1-5
+  communication Int? // e.g. 1-5
+  quality       Int? // e.g. 1-5
+  reliability   Int? // e.g. 1-5
+  text          String? @db.Text
+  isPublic      Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Notification {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type    NotificationType
+  title   String
+  message String           @db.Text
+  read    Boolean          @default(false)
+  link    String?
+
+  createdAt DateTime @default(now())
+}
+
+model Report {
+  id         String  @id @default(cuid())
+  targetType String // "PROJECT", "PROFILE", "REVIEW", "VERIFICATION"
+  targetId   String
+  reason     String
+  details    String? @db.Text
+  status     String  @default("PENDING") // PENDING, RESOLVED, DISMISSED
+
+  reportedById String
+  reportedBy   User   @relation("UserReports", fields: [reportedById], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Auth.js required models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}

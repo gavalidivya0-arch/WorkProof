@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../prisma/generated/client"
 }
 
 datasource db {
@@ -62,6 +63,7 @@ model User {
   verifiedRequests     Verification[] @relation("VerifiedByClient")
 
   notifications        Notification[]
+  submittedReports     Report[] @relation("UserReports")
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -230,12 +232,18 @@ model Notification {
 }
 
 model Report {
-  id          String   @id @default(cuid())
-  type        String
-  data        String   @db.Text // JSON payload
-  generatedBy String
+  id           String   @id @default(cuid())
+  targetType   String   // "PROJECT", "PROFILE", "REVIEW", "VERIFICATION"
+  targetId     String
+  reason       String
+  details      String?  @db.Text
+  status       String   @default("PENDING") // PENDING, RESOLVED, DISMISSED
   
-  createdAt   DateTime @default(now())
+  reportedById String
+  reportedBy   User     @relation("UserReports", fields: [reportedById], references: [id])
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 // Auth.js required models

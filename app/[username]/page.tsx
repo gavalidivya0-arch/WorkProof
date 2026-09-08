@@ -3,12 +3,14 @@ import { notFound } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MapPin, Globe, Link2, ShieldCheck, CheckCircle2, Star, Calendar, ExternalLink } from "lucide-react";
+import { MapPin, Globe, Link2, ShieldCheck, ShieldAlert, CheckCircle2, Star, Calendar, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { calculateTrustScore } from "@/lib/db/users";
 import { format } from "date-fns";
 import { ShareProfileButton } from "./ShareProfileButton";
 import { TrustScoreBadge } from "./TrustScoreBadge";
+import { isProjectModified } from "@/lib/project-utils";
+import { ReportButton } from "@/components/ReportButton";
 
 export default async function PublicProfilePage({ params }: { params: Promise<{ username: string }> }) {
   const { username } = await params;
@@ -116,6 +118,9 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
 
             <div className="flex flex-col gap-3 min-w-[140px]">
               <ShareProfileButton username={user.name || username} />
+              <div className="text-right mt-2">
+                <ReportButton targetType="PROFILE" targetId={user.id} />
+              </div>
             </div>
           </div>
 
@@ -172,7 +177,9 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
                 </div>
               ) : (
                 <div className="grid gap-4">
-                  {verifiedProjects.map((project: any) => (
+                  {verifiedProjects.map((project: any) => {
+                    const isModified = project.verification?.projectVersion ? isProjectModified(project, project.verification.projectVersion) : false;
+                    return (
                     <Card key={project.id} className="border-emerald-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group">
                       <div className="h-1 w-full bg-gradient-to-r from-emerald-400 to-teal-500" />
                       <CardHeader className="pb-3">
@@ -182,10 +189,17 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
                               <CardTitle className="text-lg text-neutral-900 group-hover:text-emerald-700 transition-colors">
                                 {project.name}
                               </CardTitle>
-                              <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 font-medium">
-                                <CheckCircle2 className="w-3 h-3 mr-1" />
-                                Verified
-                              </Badge>
+                              {isModified ? (
+                                <Badge className="bg-yellow-50 text-yellow-700 border-yellow-200 font-medium">
+                                  <ShieldAlert className="w-3 h-3 mr-1" />
+                                  Modified since verification
+                                </Badge>
+                              ) : (
+                                <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 font-medium">
+                                  <CheckCircle2 className="w-3 h-3 mr-1" />
+                                  Verified
+                                </Badge>
+                              )}
                             </div>
                             <CardDescription className="flex items-center gap-2 text-neutral-600 font-medium">
                               {project.role}
@@ -260,9 +274,12 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
                             )}
                           </div>
                         )}
+                        <div className="flex justify-end pt-2">
+                          <ReportButton targetType="PROJECT" targetId={project.id} />
+                        </div>
                       </CardContent>
                     </Card>
-                  ))}
+                  )})}
                 </div>
               )}
             </section>

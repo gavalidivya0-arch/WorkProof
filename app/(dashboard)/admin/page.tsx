@@ -1,83 +1,134 @@
-import { auth, signOut } from "@/auth";
+import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { prisma } from "@/lib/prisma";
+import { Shield, Flag, Users, Activity, CheckCircle2, AlertTriangle, XCircle } from "lucide-react";
+import { formatDistanceToNow } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Settings, Users, Activity } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 export default async function AdminDashboard() {
   const session = await auth();
-
-  if (!session?.user) {
-    redirect("/login");
+  if (!session?.user) redirect("/login");
+  
+  // Verify Admin Role
+  const dbUser = await prisma.user.findUnique({ where: { id: session.user.id } });
+  if (dbUser?.role !== "ADMIN") {
+    redirect("/dashboard");
   }
 
-  // RBAC: Only ADMIN role can access
-  if (session.user.role !== "ADMIN") {
-    // Redirect to the correct dashboard based on role
-    if (session.user.role === "FREELANCER") redirect("/dashboard");
-    if (session.user.role === "CLIENT") redirect("/client");
-    redirect("/login");
-  }
+  // Fetch pending reports
+  const pendingReports = await prisma.report.findMany({
+    where: { status: "PENDING" },
+    orderBy: { createdAt: "desc" },
+    include: {
+      reportedBy: true,
+    }
+  });
+
+  // Fetch recent verifications for audit
+  const recentVerifications = await prisma.verification.findMany({
+    orderBy: { verifiedAt: "desc" },
+    take: 10,
+    include: {
+      project: { include: { freelancer: true } },
+      verifiedBy: true
+    }
+  });
 
   return (
-    <div className="flex-1 space-y-4 p-8 pt-6 max-w-7xl mx-auto w-full">
-      <div className="flex items-center justify-between space-y-2">
-        <h2 className="text-3xl font-bold tracking-tight text-destructive">Admin Overview</h2>
-        <div className="flex items-center space-x-2">
-          <form
-            action={async () => {
-              "use server";
-              await signOut({ redirectTo: "/login" });
-            }}
-          >
-            <Button type="submit" variant="outline">Sign Out</Button>
-          </form>
-        </div>
+    <div className="max-w-6xl mx-auto py-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold tracking-tight text-neutral-900 flex items-center gap-3">
+          <Shield className="w-8 h-8 text-indigo-600" />
+          Admin Moderation
+        </h1>
+        <p className="text-neutral-500 mt-2">Manage reports, review verifications, and maintain platform integrity.</p>
       </div>
-      
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Card className="border-destructive/20">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Total Users
-            </CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">System Metric</div>
-            <p className="text-xs text-muted-foreground">
-              Across all roles
-            </p>
-          </CardContent>
-        </Card>
-        <Card className="border-destructive/20">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              System Activity
-            </CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">Healthy</div>
-            <p className="text-xs text-muted-foreground">
-              API Status
-            </p>
-          </CardContent>
-        </Card>
-        <Card className="border-destructive/20">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Settings
-            </CardTitle>
-            <Settings className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">Configured</div>
-            <p className="text-xs text-muted-foreground">
-              Global Platform Settings
-            </p>
-          </CardContent>
-        </Card>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Reports Panel */}
+        <div className="lg:col-span-2 space-y-6">
+          <Card className="border-red-100 shadow-sm">
+            <CardHeader className="bg-red-50/50 border-b border-red-100">
+              <CardTitle className="text-red-800 flex items-center gap-2">
+                <Flag className="w-5 h-5" />
+                Pending Reports ({pendingReports.length})
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              {pendingReports.length === 0 ? (
+                <div className="p-8 text-center text-neutral-500">
+                  <CheckCircle2 className="w-12 h-12 text-emerald-300 mx-auto mb-3" />
+                  <p>No pending reports. The community is safe!</p>
+                </div>
+              ) : (
+                <div className="divide-y divide-neutral-100">
+                  {pendingReports.map((report) => (
+                    <div key={report.id} className="p-6 hover:bg-neutral-50 transition-colors">
+                      <div className="flex justify-between items-start mb-2">
+                        <div className="flex items-center gap-2">
+                          <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200 uppercase text-xs font-bold">
+                            {report.targetType}
+                          </Badge>
+                          <span className="text-sm font-medium text-neutral-900">{report.reason}</span>
+                        </div>
+                        <span className="text-xs text-neutral-400">
+                          {formatDistanceToNow(new Date(report.createdAt), { addSuffix: true })}
+                        </span>
+                      </div>
+                      <p className="text-sm text-neutral-600 bg-white border border-neutral-100 p-3 rounded-md mb-3">
+                        {report.details || "No additional details provided."}
+                      </p>
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-neutral-500">
+                          Reported by: <span className="font-medium text-neutral-700">{report.reportedBy.name || report.reportedBy.email}</span>
+                        </span>
+                        <div className="flex items-center gap-2">
+                          <button className="text-emerald-600 hover:underline font-medium">Dismiss</button>
+                          <span className="text-neutral-300">|</span>
+                          <button className="text-red-600 hover:underline font-medium">Take Action</button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Audit Trail Sidebar */}
+        <div className="space-y-6">
+          <Card className="border-neutral-200 shadow-sm">
+            <CardHeader className="bg-neutral-50/50 border-b border-neutral-200">
+              <CardTitle className="text-neutral-800 flex items-center gap-2 text-lg">
+                <Activity className="w-5 h-5" />
+                Recent Verifications
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="divide-y divide-neutral-100">
+                {recentVerifications.map((v) => (
+                  <div key={v.id} className="p-4 hover:bg-neutral-50 transition-colors">
+                    <p className="text-sm font-medium text-neutral-900 truncate">
+                      {v.project.name}
+                    </p>
+                    <div className="flex items-center gap-1 text-xs text-neutral-500 mt-1">
+                      <Users className="w-3.5 h-3.5" />
+                      <span className="truncate max-w-[120px]">{v.verifiedBy.name || v.verifiedBy.email}</span>
+                      <span>→</span>
+                      <span className="truncate max-w-[120px]">{v.project.freelancer.name || v.project.freelancer.username}</span>
+                    </div>
+                    <div className="mt-2 text-[10px] uppercase font-semibold tracking-wider text-neutral-400">
+                      {formatDistanceToNow(new Date(v.verifiedAt), { addSuffix: true })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
