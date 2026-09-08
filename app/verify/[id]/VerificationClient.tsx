@@ -14,8 +14,12 @@ export function VerificationClient({ verificationId }: VerificationClientProps) 
   const [url, setUrl] = useState("");
 
   useEffect(() => {
-    setUrl(window.location.href);
-  }, []);
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin;
+    // Ensure we don't accidentally generate a localhost QR in production
+    // if NEXT_PUBLIC_APP_URL is correctly set.
+    const fullUrl = `${baseUrl.replace(/\/$/, '')}/verify/${verificationId}`;
+    setUrl(fullUrl);
+  }, [verificationId]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(url);
