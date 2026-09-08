@@ -183,7 +183,7 @@ export async function processVerification(requestId: string, data: z.infer<typeo
         };
 
         // 1. Create the permanent Verification record
-        await tx.verification.create({
+        const newVerification = await tx.verification.create({
           data: {
             projectId: verificationRequest.projectId,
             verifiedById: session.user.id, // we verified they have id above
@@ -222,7 +222,7 @@ export async function processVerification(requestId: string, data: z.infer<typeo
           await sendVerificationApprovedEmail(
             verificationRequest.project.freelancer.email || "",
             verificationRequest.project.name,
-            verificationRequest.projectId // or verificationId if fetched
+            newVerification.verificationId
           );
           
           await sendReviewRequestEmail(
