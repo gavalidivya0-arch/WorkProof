@@ -2405,6 +2405,7 @@ export namespace Prisma {
     image: string | null
     password: string | null
     role: $Enums.Role | null
+    status: string | null
     orgId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2419,6 +2420,7 @@ export namespace Prisma {
     image: string | null
     password: string | null
     role: $Enums.Role | null
+    status: string | null
     orgId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2433,6 +2435,7 @@ export namespace Prisma {
     image: number
     password: number
     role: number
+    status: number
     orgId: number
     createdAt: number
     updatedAt: number
@@ -2449,6 +2452,7 @@ export namespace Prisma {
     image?: true
     password?: true
     role?: true
+    status?: true
     orgId?: true
     createdAt?: true
     updatedAt?: true
@@ -2463,6 +2467,7 @@ export namespace Prisma {
     image?: true
     password?: true
     role?: true
+    status?: true
     orgId?: true
     createdAt?: true
     updatedAt?: true
@@ -2477,6 +2482,7 @@ export namespace Prisma {
     image?: true
     password?: true
     role?: true
+    status?: true
     orgId?: true
     createdAt?: true
     updatedAt?: true
@@ -2564,6 +2570,7 @@ export namespace Prisma {
     image: string | null
     password: string | null
     role: $Enums.Role
+    status: string
     orgId: string | null
     createdAt: Date
     updatedAt: Date
@@ -2595,6 +2602,7 @@ export namespace Prisma {
     image?: boolean
     password?: boolean
     role?: boolean
+    status?: boolean
     orgId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2620,6 +2628,7 @@ export namespace Prisma {
     image?: boolean
     password?: boolean
     role?: boolean
+    status?: boolean
     orgId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2635,6 +2644,7 @@ export namespace Prisma {
     image?: boolean
     password?: boolean
     role?: boolean
+    status?: boolean
     orgId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2680,6 +2690,7 @@ export namespace Prisma {
       image: string | null
       password: string | null
       role: $Enums.Role
+      status: string
       orgId: string | null
       createdAt: Date
       updatedAt: Date
@@ -3094,6 +3105,7 @@ export namespace Prisma {
     readonly image: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
+    readonly status: FieldRef<"User", 'String'>
     readonly orgId: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
@@ -18234,6 +18246,7 @@ export namespace Prisma {
     image: 'image',
     password: 'password',
     role: 'role',
+    status: 'status',
     orgId: 'orgId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -18587,6 +18600,7 @@ export namespace Prisma {
     image?: StringNullableFilter<"User"> | string | null
     password?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
+    status?: StringFilter<"User"> | string
     orgId?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -18611,6 +18625,7 @@ export namespace Prisma {
     image?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
     role?: SortOrder
+    status?: SortOrder
     orgId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -18638,6 +18653,7 @@ export namespace Prisma {
     image?: StringNullableFilter<"User"> | string | null
     password?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
+    status?: StringFilter<"User"> | string
     orgId?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -18662,6 +18678,7 @@ export namespace Prisma {
     image?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
     role?: SortOrder
+    status?: SortOrder
     orgId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -18682,6 +18699,7 @@ export namespace Prisma {
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+    status?: StringWithAggregatesFilter<"User"> | string
     orgId?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -19711,6 +19729,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -19734,6 +19753,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     orgId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19757,6 +19777,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -19780,6 +19801,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19803,6 +19825,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     orgId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19817,6 +19840,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19830,6 +19854,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21061,6 +21086,7 @@ export namespace Prisma {
     image?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    status?: SortOrder
     orgId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -21075,6 +21101,7 @@ export namespace Prisma {
     image?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    status?: SortOrder
     orgId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -21089,6 +21116,7 @@ export namespace Prisma {
     image?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    status?: SortOrder
     orgId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -23666,6 +23694,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -23688,6 +23717,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     orgId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23726,6 +23756,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -23748,6 +23779,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23770,6 +23802,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -23792,6 +23825,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -23843,6 +23877,7 @@ export namespace Prisma {
     image?: StringNullableFilter<"User"> | string | null
     password?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
+    status?: StringFilter<"User"> | string
     orgId?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -23938,6 +23973,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -23960,6 +23996,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     orgId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24017,6 +24054,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -24039,6 +24077,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24086,6 +24125,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -24108,6 +24148,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     orgId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24135,6 +24176,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -24157,6 +24199,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     orgId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24320,6 +24363,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -24342,6 +24386,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24375,6 +24420,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -24397,6 +24443,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24937,6 +24984,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -24959,6 +25007,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     orgId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25048,6 +25097,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -25070,6 +25120,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25188,6 +25239,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -25210,6 +25262,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     orgId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25248,6 +25301,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -25270,6 +25324,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25292,6 +25347,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -25314,6 +25370,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     orgId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25352,6 +25409,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -25374,6 +25432,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25396,6 +25455,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -25418,6 +25478,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     orgId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25456,6 +25517,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -25478,6 +25540,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25500,6 +25563,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -25522,6 +25586,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     orgId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25560,6 +25625,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -25582,6 +25648,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25964,6 +26031,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: $Enums.Role
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -25977,6 +26045,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -25999,6 +26068,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -26021,6 +26091,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
