@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, LayoutDashboard, User, FolderKanban, ShieldCheck, Star, Settings, LogOut } from "lucide-react";
+import { Menu, LayoutDashboard, User, FolderKanban, ShieldCheck, Star, Settings, LogOut, Bell } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
@@ -31,7 +31,7 @@ const clientRoutes = [
   { label: "Settings", icon: Settings, href: "/client/settings" },
 ];
 
-export function TopNav({ user }: { user?: any }) {
+export function TopNav({ user, unreadCount = 0 }: { user?: any; unreadCount?: number }) {
   const pathname = usePathname();
   const router = useRouter();
   const routes = user?.role === "CLIENT" ? clientRoutes : freelancerRoutes;
@@ -71,7 +71,13 @@ export function TopNav({ user }: { user?: any }) {
         </SheetContent>
       </Sheet>
 
-      <div className="flex w-full justify-end">
+      <div className="flex w-full justify-end items-center gap-3">
+        <Link href="/dashboard/notifications" className="relative group p-2">
+          <Bell className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+          {unreadCount > 0 && (
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-500 rounded-full ring-2 ring-background"></span>
+          )}
+        </Link>
         <DropdownMenu>
           {/* @ts-ignore - Radix UI typing conflict */}
           <DropdownMenuTrigger className={cn(buttonVariants({ variant: "ghost" }), "relative h-8 w-8 rounded-full")}>

@@ -12,7 +12,7 @@ export interface TalentUser {
   verifiedCount: number;
   avgRating: number;
   skills: string[];
-  _expYears?: number;
+  _expYears: number;
 }
 
 export function TalentCard({ user }: { user: TalentUser }) {

@@ -78,6 +78,21 @@ export async function requestVerification(projectId: string, data: z.infer<typeo
       });
     });
 
+    try {
+      const { sendVerificationRequestEmail } = await import("@/lib/email");
+      await sendVerificationRequestEmail(
+        validatedData.clientEmail,
+        session.user.name || "A freelancer",
+        project.name,
+        project.role,
+        "See project details",
+        0, // or get deliverables length if fetched
+        token
+      );
+    } catch (e) {
+      console.error("Failed to send verification email:", e);
+    }
+
     revalidatePath("/dashboard/projects");
     revalidatePath("/dashboard/verification");
 
@@ -112,6 +127,7 @@ export async function processVerification(requestId: string, data: z.infer<typeo
       include: {
         project: {
           include: {
+            freelancer: true,
             deliverables: true,
             skills: {
               include: {
@@ -186,6 +202,34 @@ export async function processVerification(requestId: string, data: z.infer<typeo
           data: { status: "APPROVED" }
         });
         
+        try {
+          const { sendVerificationApprovedEmail, sendReviewRequestEmail } = await import("@/lib/email");
+          const { createNotification } = await import("@/lib/notifications");
+          
+          await sendVerificationApprovedEmail(
+            verificationRequest.project.freelancer.email || "",
+            verificationRequest.project.name,
+            verificationRequest.projectId // or verificationId if fetched
+          );
+          
+          await sendReviewRequestEmail(
+            session.user.email || "",
+            verificationRequest.project.freelancer.name || "the freelancer",
+            verificationRequest.project.name,
+            verificationRequest.projectId
+          );
+          
+          await createNotification({
+            userId: verificationRequest.project.freelancerId,
+            type: "VERIFICATION_APPROVED",
+            title: "Project Verified! ✅",
+            message: `Your project "${verificationRequest.project.name}" was verified by the client.`,
+            link: `/dashboard/projects/${verificationRequest.projectId}`
+          });
+        } catch(e) {
+          console.error("Email/Notification error on approval:", e);
+        }
+        
       } else {
         // Handle REJECTION
         await tx.project.update({
@@ -202,6 +246,27 @@ export async function processVerification(requestId: string, data: z.infer<typeo
             message: validatedData.auditMessage || null
           }
         });
+
+        try {
+          const { sendVerificationRejectedEmail } = await import("@/lib/email");
+          const { createNotification } = await import("@/lib/notifications");
+          
+          await sendVerificationRejectedEmail(
+            verificationRequest.project.freelancer.email || "",
+            verificationRequest.project.name,
+            validatedData.auditMessage || ""
+          );
+          
+          await createNotification({
+            userId: verificationRequest.project.freelancerId,
+            type: "VERIFICATION_REJECTED",
+            title: "Verification Rejected ❌",
+            message: `Your verification request for "${verificationRequest.project.name}" was rejected.`,
+            link: `/dashboard/projects/${verificationRequest.projectId}`
+          });
+        } catch(e) {
+          console.error("Email/Notification error on rejection:", e);
+        }
       }
     });
 

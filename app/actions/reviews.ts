@@ -61,6 +61,17 @@ export async function submitReview(data: CreateReviewData) {
       where: { id: project.freelancerId }
     });
 
+    if (user) {
+      const { createNotification } = await import("@/lib/notifications");
+      await createNotification({
+        userId: user.id,
+        type: "REVIEW_RECEIVED",
+        title: "New Client Review! ⭐",
+        message: `Your client just left a ${data.rating}-star review for "${project.name}".`,
+        link: `/${user.username || user.id}`
+      });
+    }
+
     revalidatePath(`/${user?.username || ''}`);
     revalidatePath("/dashboard");
     revalidatePath(`/dashboard/projects/${data.projectId}`);
