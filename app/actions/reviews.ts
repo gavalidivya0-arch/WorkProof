@@ -15,6 +15,17 @@ interface CreateReviewData {
 
 export async function submitReview(data: CreateReviewData) {
   try {
+    const { auth } = await import("@/auth");
+    const session = await auth();
+    
+    if (!session?.user?.id || !session.user.email) {
+      return { error: "You must be logged in to submit a review." };
+    }
+    
+    if (session.user.role !== "CLIENT") {
+      return { error: "Only clients can submit reviews." };
+    }
+
     const project = await prisma.project.findUnique({
       where: { id: data.projectId },
       include: {
@@ -30,10 +41,9 @@ export async function submitReview(data: CreateReviewData) {
       return { error: "Only verified projects can receive reviews." };
     }
 
-    // Since verified requests store the client email in `verificationRequest` or `clientEmail`
-    // Let's verify the email matches the verified client email
+    // Security Check: The current user's email MUST match the verified client email
     const verifierEmail = project.clientEmail || project.verificationRequest?.clientEmail;
-    if (!verifierEmail || verifierEmail.toLowerCase() !== data.clientEmail.toLowerCase()) {
+    if (!verifierEmail || verifierEmail.toLowerCase() !== session.user.email.toLowerCase()) {
       return { error: "Unauthorized. You are not the verified client for this project." };
     }
 

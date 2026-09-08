@@ -13,10 +13,14 @@ export async function createProject(data: z.infer<typeof projectSchema>) {
     return { error: "Unauthorized" };
   }
 
-  // Double check role
   if (session.user.role !== "FREELANCER") {
     return { error: "Only freelancers can create projects." };
   }
+
+  // Rate limit: max 10 project creations per 15 mins per user
+  const { rateLimit } = await import("@/lib/rate-limit");
+  const rl = rateLimit(`create_proj_${session.user.id}`, 10, 15 * 60 * 1000);
+  if (!rl.success) return { error: rl.error };
 
   const parsed = projectSchema.safeParse(data);
   if (!parsed.success) {

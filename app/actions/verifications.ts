@@ -21,6 +21,11 @@ export async function requestVerification(projectId: string, data: z.infer<typeo
 
     const validatedData = verificationRequestSchema.parse(data);
 
+    // Rate limit: maximum 5 verification requests per user per 15 minutes
+    const { rateLimit } = await import("@/lib/rate-limit");
+    const rl = rateLimit(`verify_req_${session.user.id}`, 5, 15 * 60 * 1000);
+    if (!rl.success) return { error: rl.error };
+
     // Ensure the project belongs to the user and is UNVERIFIED
     const project = await prisma.project.findUnique({
       where: {
