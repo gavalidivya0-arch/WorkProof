@@ -44,6 +44,7 @@ model User {
   password      String?
   role          Role      @default(FREELANCER)
   status        String    @default("ACTIVE") // ACTIVE, SUSPENDED
+  plan          String    @default("FREE") // FREE, PRO, BUSINESS
   
   // Auth.js relations
   accounts      Account[]

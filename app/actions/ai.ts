@@ -3,12 +3,34 @@
 import { generateText, generateObject } from "ai";
 import { google } from "@ai-sdk/google";
 import { z } from "zod";
+import { auth } from "@/auth";
+import { prisma } from "@/lib/prisma";
 
 // Helper to check if API key exists
 const hasApiKey = !!process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
+async function enforceProPlan() {
+  const session = await auth();
+  if (!session?.user?.id) throw new Error("Unauthorized");
+  
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { plan: true }
+  });
+  
+  if (user?.plan === "FREE") {
+    throw new Error("AI features require a PRO or BUSINESS plan. Please upgrade to continue.");
+  }
+}
+
 export async function enhanceProjectDescription(input: string) {
   if (!input || input.trim() === "") return { text: "" };
+
+  try {
+    await enforceProPlan();
+  } catch (error: any) {
+    return { error: error.message };
+  }
 
   if (!hasApiKey) {
     // Mock response for testing without API key
@@ -39,6 +61,12 @@ CRITICAL RULES:
 
 export async function extractSkills(description: string) {
   if (!description || description.trim() === "") return { skills: [] };
+
+  try {
+    await enforceProPlan();
+  } catch (error: any) {
+    return { error: error.message };
+  }
 
   if (!hasApiKey) {
     // Mock response
@@ -78,6 +106,12 @@ CRITICAL RULES:
 
 export async function analyzeResume(resumeText: string) {
   if (!resumeText || resumeText.trim() === "") return { error: "No text provided" };
+
+  try {
+    await enforceProPlan();
+  } catch (error: any) {
+    return { error: error.message };
+  }
 
   if (!hasApiKey) {
     // Mock response

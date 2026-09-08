@@ -23,6 +23,22 @@ export async function createProject(data: z.infer<typeof projectSchema>) {
     return { error: "Invalid data provided.", details: parsed.error.format() };
   }
 
+  // Enforce monetization limits
+  const dbUser = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { plan: true }
+  });
+
+  if (dbUser?.plan === "FREE") {
+    const projectCount = await prisma.project.count({
+      where: { freelancerId: session.user.id }
+    });
+    
+    if (projectCount >= 3) {
+      return { error: "FREE plan limit reached. Upgrade to PRO to add more projects." };
+    }
+  }
+
   const { name, role, description, projectUrl, startDate, endDate, clientEmail, skills, deliverables } = parsed.data;
 
   // Process skills (comma separated string -> array of trimmed strings)
