@@ -10,7 +10,6 @@ import {
   Info,
   Mail,
   Search,
-  ArrowRight,
   FolderKanban,
   Star,
   FileText,
@@ -212,7 +211,6 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
                   <Icon className="w-[19px] h-[19px] stroke-[1.8] text-white/90 group-hover:text-white transition-colors" />
                   <span>{item.label}</span>
                 </div>
-                <ArrowRight className="w-4 h-4 text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all duration-180 shrink-0" />
               </Link>
             );
           })}
