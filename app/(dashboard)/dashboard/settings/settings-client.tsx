@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
+import { logoutUser } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,7 +28,7 @@ export function SettingsClient({ user }: SettingsClientProps) {
   const [isPending, startTransition] = useTransition();
 
   const handleSignOut = async () => {
-    await signOut({ callbackUrl: "/" });
+    await logoutUser();
   };
 
   const planColor =

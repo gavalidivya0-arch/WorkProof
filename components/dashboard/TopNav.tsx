@@ -14,7 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { signOut } from "next-auth/react";
+import { logoutUser } from "@/app/actions/auth";
 
 const freelancerRoutes = [
   { label: "Overview", icon: LayoutDashboard, href: "/dashboard" },
@@ -111,16 +111,19 @@ export function TopNav({ user, unreadCount = 0 }: { user?: any; unreadCount?: nu
               Settings
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem 
-              className="text-destructive focus:bg-destructive focus:text-destructive-foreground cursor-pointer"
-              onSelect={(e) => {
-                e.preventDefault();
-                signOut({ callbackUrl: "/" });
-              }}
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              <span>Log out</span>
-            </DropdownMenuItem>
+            <form action={async () => {
+              await logoutUser();
+            }}>
+              <DropdownMenuItem 
+                asChild
+                className="text-destructive focus:bg-destructive focus:text-destructive-foreground cursor-pointer"
+              >
+                <button type="submit" className="w-full flex items-center">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Log out</span>
+                </button>
+              </DropdownMenuItem>
+            </form>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
