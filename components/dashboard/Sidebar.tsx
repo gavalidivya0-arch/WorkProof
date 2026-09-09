@@ -11,6 +11,11 @@ import {
   Mail,
   Search,
   ArrowRight,
+  FolderKanban,
+  Star,
+  FileText,
+  Settings,
+  Shield,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -36,17 +41,18 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
   const primaryNavItems = [
     {
       label: "Discover",
-      href: "/dashboard",
+      href: role === "CLIENT" ? "/client" : role === "ADMIN" ? "/admin" : "/dashboard",
       icon: Compass,
-      active: pathname === "/dashboard",
+      active: pathname === "/dashboard" || pathname === "/client",
     },
     {
       label: "Verified Work",
-      href: "/dashboard/projects",
+      href: role === "CLIENT" ? "/client/verification-requests" : "/dashboard/projects",
       icon: ShieldCheck,
       active:
         pathname.startsWith("/dashboard/projects") ||
-        pathname.startsWith("/dashboard/verification"),
+        pathname.startsWith("/dashboard/verification") ||
+        pathname.startsWith("/client/verification-requests"),
     },
     {
       label: "Talent",
@@ -56,7 +62,20 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
     },
   ];
 
-  const secondaryNavItems = [
+  // Secondary items based on role so all existing platform features remain fully reachable
+  const freelancerSecondaryItems = [
+    {
+      label: "Verification",
+      href: "/dashboard/verification",
+      icon: ShieldCheck,
+      active: pathname === "/dashboard/verification",
+    },
+    {
+      label: "Reviews",
+      href: "/dashboard/reviews",
+      icon: Star,
+      active: pathname === "/dashboard/reviews",
+    },
     {
       label: "About",
       href: "/#how-it-works",
@@ -71,10 +90,65 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
     },
   ];
 
+  const clientSecondaryItems = [
+    {
+      label: "Verifications",
+      href: "/client/verification-requests",
+      icon: ShieldCheck,
+      active: pathname.startsWith("/client/verification-requests"),
+    },
+    {
+      label: "Settings",
+      href: "/client/settings",
+      icon: Settings,
+      active: pathname === "/client/settings",
+    },
+    {
+      label: "About",
+      href: "/#how-it-works",
+      icon: Info,
+      active: false,
+    },
+    {
+      label: "Contact",
+      href: "mailto:support@workproof.com",
+      icon: Mail,
+      active: false,
+    },
+  ];
+
+  const adminSecondaryItems = [
+    {
+      label: "Admin Panel",
+      href: "/admin",
+      icon: Shield,
+      active: pathname === "/admin",
+    },
+    {
+      label: "About",
+      href: "/#how-it-works",
+      icon: Info,
+      active: false,
+    },
+    {
+      label: "Contact",
+      href: "mailto:support@workproof.com",
+      icon: Mail,
+      active: false,
+    },
+  ];
+
+  const secondaryNavItems =
+    role === "CLIENT"
+      ? clientSecondaryItems
+      : role === "ADMIN"
+      ? adminSecondaryItems
+      : freelancerSecondaryItems;
+
   return (
     <aside
       className={cn(
-        "w-[218px] min-w-[218px] bg-[#075E63] text-white flex flex-col justify-between select-none",
+        "w-[218px] min-w-[218px] bg-[#075E63] text-white flex flex-col justify-between select-none overflow-y-auto",
         className
       )}
     >
@@ -85,7 +159,7 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
           <Link
             href="/"
             onClick={onNavigate}
-            className="group block transition-opacity hover:opacity-90"
+            className="group block transition-opacity hover:opacity-90 cursor-pointer"
           >
             <div className="font-serif text-[54px] font-bold leading-none tracking-normal text-white">
               WP
@@ -100,7 +174,13 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
         <div className="px-[24px] mb-6">
           <form onSubmit={handleSearchSubmit} className="relative">
             <div className="flex items-center pb-2 border-b border-white/20 focus-within:border-white/60 transition-colors">
-              <Search className="w-[18px] h-[18px] text-white/70 mr-2.5 shrink-0 stroke-[1.8]" />
+              <button
+                type="submit"
+                aria-label="Submit Search"
+                className="text-white/70 hover:text-white transition-colors cursor-pointer mr-2.5 shrink-0 focus:outline-none"
+              >
+                <Search className="w-[18px] h-[18px] stroke-[1.8]" />
+              </button>
               <input
                 type="text"
                 value={searchQuery}
@@ -122,7 +202,7 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
                 href={item.href}
                 onClick={onNavigate}
                 className={cn(
-                  "group flex items-center justify-between h-[48px] px-3.5 rounded-[6px] text-[14px] font-medium transition-all duration-180",
+                  "group flex items-center justify-between h-[48px] px-3.5 rounded-[6px] text-[14px] font-medium transition-all duration-180 cursor-pointer",
                   item.active
                     ? "bg-white/15 text-white shadow-sm"
                     : "text-white/80 hover:text-white hover:bg-white/10"
@@ -150,7 +230,12 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
                 key={item.label}
                 href={item.href}
                 onClick={onNavigate}
-                className="group flex items-center h-[42px] px-3.5 rounded-[6px] text-[13.5px] font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all duration-180"
+                className={cn(
+                  "group flex items-center h-[42px] px-3.5 rounded-[6px] text-[13.5px] font-medium transition-all duration-180 cursor-pointer",
+                  item.active
+                    ? "bg-white/15 text-white shadow-sm"
+                    : "text-white/70 hover:text-white hover:bg-white/10"
+                )}
               >
                 <Icon className="w-[18px] h-[18px] stroke-[1.7] text-white/70 group-hover:text-white transition-colors mr-3" />
                 <span>{item.label}</span>
@@ -170,7 +255,7 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="hover:text-white transition-colors hover:scale-110 transform duration-150"
+            className="hover:text-white transition-colors hover:scale-110 transform duration-150 cursor-pointer"
           >
             <svg
               className="w-[17px] h-[17px] fill-current"
@@ -186,7 +271,7 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="hover:text-white transition-colors hover:scale-110 transform duration-150"
+            className="hover:text-white transition-colors hover:scale-110 transform duration-150 cursor-pointer"
           >
             <svg
               className="w-[17px] h-[17px] fill-current"
@@ -206,7 +291,7 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
             target="_blank"
             rel="noopener noreferrer"
             aria-label="X (Twitter)"
-            className="hover:text-white transition-colors hover:scale-110 transform duration-150"
+            className="hover:text-white transition-colors hover:scale-110 transform duration-150 cursor-pointer"
           >
             <svg
               className="w-[15px] h-[15px] fill-current"

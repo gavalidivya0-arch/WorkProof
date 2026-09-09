@@ -2,8 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, Check, Star, ShieldCheck } from "lucide-react";
+import { ArrowRight, Check, Star, ShieldCheck, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface HeroSectionProps {
@@ -28,18 +27,21 @@ export function HeroSection({
       category: projects[0]?.skills?.[0]?.skill?.name || "UI/UX Design",
       verified: true,
       color: "bg-blue-50 text-blue-600",
+      href: projects[0]?.id ? `/dashboard/projects/${projects[0].id}` : "/dashboard/projects",
     },
     {
       name: projects[1]?.name || "E-commerce Dashboard",
       category: projects[1]?.skills?.[0]?.skill?.name || "Product Design",
       verified: true,
       color: "bg-emerald-50 text-emerald-600",
+      href: projects[1]?.id ? `/dashboard/projects/${projects[1].id}` : "/dashboard/projects",
     },
     {
       name: projects[2]?.name || "SaaS Admin Panel",
       category: projects[2]?.skills?.[0]?.skill?.name || "UI Design",
       verified: true,
       color: "bg-purple-50 text-purple-600",
+      href: projects[2]?.id ? `/dashboard/projects/${projects[2].id}` : "/dashboard/projects",
     },
   ];
 
@@ -86,11 +88,11 @@ export function HeroSection({
             proof that builds trust and opens doors.
           </p>
 
-          {/* Hero Buttons */}
+          {/* Hero Action Buttons */}
           <div className="flex flex-wrap items-center gap-3.5">
             <Link
-              href="/dashboard/projects"
-              className="group bg-[#075E63] hover:bg-[#064e52] text-white text-[14px] font-medium h-[48px] px-[22px] py-[14px] rounded-[6px] transition-all duration-180 flex items-center gap-2 shadow-xs hover:shadow-sm"
+              href="/dashboard/verification"
+              className="group bg-[#075E63] hover:bg-[#064e52] active:scale-[0.98] text-white text-[14px] font-medium h-[48px] px-[22px] py-[14px] rounded-[6px] transition-all duration-180 flex items-center gap-2 shadow-xs hover:shadow-sm cursor-pointer"
             >
               <span>Get Verified</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-180" />
@@ -98,7 +100,7 @@ export function HeroSection({
 
             <Link
               href="/talent"
-              className="group bg-transparent hover:bg-[#075E63]/5 text-[#075E63] border border-[#075E63] text-[14px] font-medium h-[48px] px-[22px] py-[14px] rounded-[6px] transition-all duration-180 flex items-center gap-2"
+              className="group bg-transparent hover:bg-[#075E63]/5 active:scale-[0.98] text-[#075E63] border border-[#075E63] text-[14px] font-medium h-[48px] px-[22px] py-[14px] rounded-[6px] transition-all duration-180 flex items-center gap-2 cursor-pointer"
             >
               <span>Explore Talent</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-180" />
@@ -124,26 +126,41 @@ export function HeroSection({
                     <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
                     <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
                   </div>
-                  <div className="text-[11px] font-medium text-[#6B7375] flex items-center gap-1.5">
+                  <Link
+                    href="/dashboard"
+                    className="text-[11px] font-medium text-[#6B7375] hover:text-[#075E63] flex items-center gap-1.5 cursor-pointer"
+                  >
                     <ShieldCheck className="w-3.5 h-3.5 text-[#075E63]" />
                     <span>workproof.io/dashboard</span>
-                  </div>
+                  </Link>
                   <div className="w-10" />
                 </div>
 
                 {/* Mockup App Interface */}
                 <div className="p-4 sm:p-5 bg-white min-h-[200px] sm:min-h-[230px]">
                   <div className="flex items-center justify-between mb-3.5">
-                    <h3 className="text-sm font-bold text-[#073F48]">Projects</h3>
-                    <span className="text-[11px] text-[#075E63] font-medium">3 active</span>
+                    <Link
+                      href="/dashboard/projects"
+                      className="text-sm font-bold text-[#073F48] hover:text-[#075E63] flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <span>Projects</span>
+                      <ExternalLink className="w-3 h-3 text-[#6B7375]" />
+                    </Link>
+                    <Link
+                      href="/dashboard/projects"
+                      className="text-[11px] text-[#075E63] hover:underline font-medium cursor-pointer"
+                    >
+                      3 active
+                    </Link>
                   </div>
 
-                  {/* Projects List */}
+                  {/* Projects List (Interactive Links) */}
                   <div className="space-y-2.5">
                     {displayProjects.map((proj, idx) => (
-                      <div
+                      <Link
                         key={idx}
-                        className="flex items-center justify-between p-2.5 rounded-[6px] border border-[#E7E4DF] hover:border-[#075E63]/30 bg-[#FAFAF8] transition-colors"
+                        href={proj.href}
+                        className="flex items-center justify-between p-2.5 rounded-[6px] border border-[#E7E4DF] hover:border-[#075E63]/40 bg-[#FAFAF8] hover:bg-white hover:shadow-xs transition-all cursor-pointer group/proj"
                       >
                         <div className="flex items-center gap-3">
                           <div
@@ -155,7 +172,7 @@ export function HeroSection({
                             {proj.name.charAt(0)}
                           </div>
                           <div>
-                            <div className="text-xs font-semibold text-[#17324D]">
+                            <div className="text-xs font-semibold text-[#17324D] group-hover/proj:text-[#075E63] transition-colors">
                               {proj.name}
                             </div>
                             <div className="text-[10px] text-[#6B7375]">
@@ -165,11 +182,11 @@ export function HeroSection({
                         </div>
 
                         {/* Verified badge */}
-                        <div className="flex items-center gap-1 text-[11px] font-semibold text-[#16A085] bg-[#E8F8F5] px-2 py-0.5 rounded-[4px]">
+                        <div className="flex items-center gap-1 text-[11px] font-semibold text-[#16A085] bg-[#E8F8F5] group-hover/proj:bg-[#D4F4ED] px-2 py-0.5 rounded-[4px] transition-colors">
                           <Check className="w-3 h-3 stroke-[2.5]" />
                           <span>Verified</span>
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -189,7 +206,6 @@ export function HeroSection({
               className="absolute -right-6 sm:-right-10 -bottom-3 sm:-bottom-4 w-24 sm:w-32 h-24 sm:h-32 pointer-events-none z-10"
               aria-hidden="true"
             >
-              {/* Plant Image */}
               <img
                 src="/assets/plant.jpg"
                 alt=""
@@ -201,14 +217,20 @@ export function HeroSection({
           {/* FLOATING VERIFIED PROFESSIONAL CARD (Overlapping Laptop) */}
           <div className="absolute left-2 sm:-left-4 md:-left-8 top-6 sm:top-8 z-20 w-[260px] sm:w-[285px] bg-[#FFFFFF] border border-[#E6E3DF] rounded-[12px] shadow-[0_15px_40px_rgba(0,0,0,0.08)] p-4 sm:p-5 transition-transform hover:-translate-y-0.5 duration-200">
             {/* Top Status */}
-            <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#16A085] bg-[#E8F8F5] px-2.5 py-0.5 rounded-full mb-3.5">
+            <Link
+              href="/dashboard/verification"
+              className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#16A085] bg-[#E8F8F5] hover:bg-[#D4F4ED] px-2.5 py-0.5 rounded-full mb-3.5 transition-colors cursor-pointer"
+            >
               <Check className="w-3 h-3 stroke-[2.5]" />
               <span>VERIFIED PROFESSIONAL</span>
-            </div>
+            </Link>
 
             {/* Profile Info */}
-            <div className="flex items-center gap-3">
-              <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 border-2 border-white shadow-xs bg-[#E7E4DF]">
+            <Link
+              href="/dashboard/profile"
+              className="flex items-center gap-3 group/prof cursor-pointer"
+            >
+              <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 border-2 border-white group-hover/prof:border-[#075E63] shadow-xs bg-[#E7E4DF] transition-colors">
                 <img
                   src={profileImage}
                   alt={profileName}
@@ -216,7 +238,7 @@ export function HeroSection({
                 />
               </div>
               <div className="min-w-0">
-                <h4 className="text-sm font-bold text-[#073F48] truncate">
+                <h4 className="text-sm font-bold text-[#073F48] group-hover/prof:text-[#075E63] truncate transition-colors">
                   {profileName}
                 </h4>
                 <p className="text-xs text-[#6B7375] truncate font-normal">
@@ -240,15 +262,18 @@ export function HeroSection({
                   </span>
                 </div>
               </div>
-            </div>
+            </Link>
 
             {/* Divider */}
             <div className="border-t border-[#E7E4DF] my-3.5" />
 
-            {/* Stats Metrics */}
+            {/* Stats Metrics (Clickable to respective dashboard sections) */}
             <div className="grid grid-cols-3 gap-1 text-center">
-              <div>
-                <div className="text-[17px] font-bold text-[#073F48] leading-tight">
+              <Link
+                href="/dashboard"
+                className="hover:bg-[#F1F8F7] rounded p-1 transition-colors cursor-pointer group/stat"
+              >
+                <div className="text-[17px] font-bold text-[#073F48] group-hover/stat:text-[#075E63] leading-tight transition-colors">
                   {trustScore}
                 </div>
                 <div className="text-[9.5px] uppercase tracking-wider text-[#6B7375] mt-0.5">
@@ -256,10 +281,13 @@ export function HeroSection({
                   <br />
                   Score
                 </div>
-              </div>
+              </Link>
 
-              <div>
-                <div className="text-[17px] font-bold text-[#073F48] leading-tight">
+              <Link
+                href="/dashboard/projects"
+                className="hover:bg-[#F1F8F7] rounded p-1 transition-colors cursor-pointer group/stat"
+              >
+                <div className="text-[17px] font-bold text-[#073F48] group-hover/stat:text-[#075E63] leading-tight transition-colors">
                   {verifiedCount}
                 </div>
                 <div className="text-[9.5px] uppercase tracking-wider text-[#6B7375] mt-0.5">
@@ -267,10 +295,13 @@ export function HeroSection({
                   <br />
                   Projects
                 </div>
-              </div>
+              </Link>
 
-              <div>
-                <div className="text-[17px] font-bold text-[#073F48] leading-tight">
+              <Link
+                href="/dashboard/reviews"
+                className="hover:bg-[#F1F8F7] rounded p-1 transition-colors cursor-pointer group/stat"
+              >
+                <div className="text-[17px] font-bold text-[#073F48] group-hover/stat:text-[#075E63] leading-tight transition-colors">
                   {reviewCount}
                 </div>
                 <div className="text-[9.5px] uppercase tracking-wider text-[#6B7375] mt-0.5">
@@ -278,14 +309,17 @@ export function HeroSection({
                   <br />
                   Reviews
                 </div>
-              </div>
+              </Link>
             </div>
 
-            {/* Experience Verified Pill Button */}
-            <div className="mt-3.5 flex items-center justify-center gap-1 text-[11px] font-semibold text-[#16A085] bg-[#E8F8F5] py-1.5 px-3 rounded-full text-center">
+            {/* Experience Verified Pill Button (Now an active clickable button) */}
+            <Link
+              href="/dashboard/verification"
+              className="mt-3.5 flex items-center justify-center gap-1 text-[11px] font-semibold text-[#16A085] bg-[#E8F8F5] hover:bg-[#D4F4ED] active:scale-[0.98] transition-all py-1.5 px-3 rounded-full text-center cursor-pointer shadow-xs"
+            >
               <Check className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>EXPERIENCE VERIFIED</span>
-            </div>
+            </Link>
           </div>
         </div>
       </div>
