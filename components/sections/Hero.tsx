@@ -31,7 +31,7 @@ export function Hero() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 pt-6 w-full max-w-md mx-auto sm:max-w-none justify-center animate-in-up" style={{ animationDelay: "300ms" }}>
-            <Link href="/signup" className={buttonVariants({ size: "lg", className: "rounded-full px-8 h-14 text-base shadow-lg shadow-primary/25 hover:shadow-xl transition-shadow" })}>
+            <Link href="/register" className={buttonVariants({ size: "lg", className: "rounded-full px-8 h-14 text-base shadow-lg shadow-primary/25 hover:shadow-xl transition-shadow" })}>
               Get Started
             </Link>
             <Link href="#how-it-works" className={buttonVariants({ size: "lg", variant: "outline", className: "rounded-full px-8 h-14 text-base glass hover:bg-muted/50 transition-colors" })}>

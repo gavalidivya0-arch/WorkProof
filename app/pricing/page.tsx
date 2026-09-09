@@ -15,7 +15,7 @@ const tiers = [
       "Public profile sharing",
     ],
     cta: "Get Started",
-    href: "/signup",
+    href: "/register",
     mostPopular: false,
   },
   {
