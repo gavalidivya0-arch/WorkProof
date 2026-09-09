@@ -27,8 +27,10 @@ export function SettingsClient({ user }: SettingsClientProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
-  const handleSignOut = async () => {
-    await logoutUser();
+  const handleSignOut = () => {
+    startTransition(async () => {
+      await logoutUser();
+    });
   };
 
   const planColor =

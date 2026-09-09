@@ -1,5 +1,7 @@
 "use client";
 
+import { useTransition } from "react";
+
 import { Menu, LayoutDashboard, User, FolderKanban, ShieldCheck, Star, Settings, LogOut, Bell, Shield, FileText } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -34,6 +36,7 @@ const clientRoutes = [
 export function TopNav({ user, unreadCount = 0 }: { user?: any; unreadCount?: number }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const routes = user?.role === "CLIENT" ? clientRoutes : freelancerRoutes;
 
   return (
@@ -111,19 +114,18 @@ export function TopNav({ user, unreadCount = 0 }: { user?: any; unreadCount?: nu
               Settings
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <form action={async () => {
-              await logoutUser();
-            }}>
-              <DropdownMenuItem 
-                asChild
-                className="text-destructive focus:bg-destructive focus:text-destructive-foreground cursor-pointer"
-              >
-                <button type="submit" className="w-full flex items-center">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
-                </button>
-              </DropdownMenuItem>
-            </form>
+            <DropdownMenuItem 
+              className="text-destructive focus:bg-destructive focus:text-destructive-foreground cursor-pointer"
+              onSelect={(e) => {
+                e.preventDefault();
+                startTransition(async () => {
+                  await logoutUser();
+                });
+              }}
+            >
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Log out</span>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
