@@ -113,7 +113,10 @@ export function TopNav({ user, unreadCount = 0 }: { user?: any; unreadCount?: nu
             <DropdownMenuSeparator />
             <DropdownMenuItem 
               className="text-destructive focus:bg-destructive focus:text-destructive-foreground cursor-pointer"
-              onSelect={() => signOut({ callbackUrl: "/" })}
+              onSelect={(e) => {
+                e.preventDefault();
+                signOut({ callbackUrl: "/" });
+              }}
             >
               <LogOut className="mr-2 h-4 w-4" />
               <span>Log out</span>
