@@ -107,16 +107,16 @@ export function TopNav({ user, unreadCount = 0 }: { user?: any; unreadCount?: nu
               </div>
             </div>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onSelect={() => router.push("/dashboard/profile")}>
+            <DropdownMenuItem onClick={() => router.push("/dashboard/profile")}>
               Profile
             </DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => router.push("/dashboard/settings")}>
+            <DropdownMenuItem onClick={() => router.push("/dashboard/settings")}>
               Settings
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem 
               className="text-destructive focus:bg-destructive focus:text-destructive-foreground cursor-pointer"
-              onSelect={(e) => {
+              onClick={(e) => {
                 e.preventDefault();
                 startTransition(async () => {
                   await logoutUser();
