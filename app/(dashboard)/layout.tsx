@@ -18,19 +18,25 @@ export default async function DashboardLayout({
   const unreadCount = await prisma.notification.count({
     where: {
       userId: session.user.id,
-      read: false
-    }
+      read: false,
+    },
   });
 
   return (
-    <div className="h-screen flex overflow-hidden bg-muted/20">
-      <Sidebar role={session.user.role} />
-      <main className="flex-1 flex flex-col overflow-hidden">
+    <div className="min-h-screen bg-[#FAFAF8] text-[#17324D] relative">
+      {/* Desktop Fixed Left Sidebar */}
+      <Sidebar
+        role={session.user.role}
+        className="fixed left-0 top-0 bottom-0 z-40 hidden md:flex"
+      />
+
+      {/* Main Content Area */}
+      <div className="md:ml-[218px] md:w-[calc(100%-218px)] min-h-screen flex flex-col bg-[#FAFAF8]">
         <TopNav user={session.user} unreadCount={unreadCount} />
-        <div className="flex-1 overflow-y-auto p-4 md:p-8">
+        <main className="flex-1 px-4 py-6 w-full">
           {children}
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }
