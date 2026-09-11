@@ -7,32 +7,15 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  FREELANCER
-  CLIENT
-  ADMIN
-}
 
-enum VerificationStatus {
-  UNVERIFIED
-  PENDING
-  VERIFIED
-  REJECTED
-}
 
-enum NotificationType {
-  INFO
-  VERIFICATION_REQUESTED
-  VERIFICATION_APPROVED
-  VERIFICATION_REJECTED
-  SYSTEM_ALERT
-  REVIEW_REQUESTED
-  REVIEW_RECEIVED
-}
+
+
+
 
 model User {
   id            String    @id @default(cuid())
@@ -42,7 +25,7 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String?
-  role          Role      @default(FREELANCER)
+  role          String      @default("FREELANCER")
   status        String    @default("ACTIVE") // ACTIVE, SUSPENDED
   plan          String    @default("FREE") // FREE, PRO, BUSINESS
   
@@ -76,7 +59,7 @@ model Profile {
   userId    String   @unique
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   
-  bio       String?  @db.Text
+  bio       String? 
   title     String?  // e.g., "Senior Frontend Developer"
   website   String?
   github    String?
@@ -123,13 +106,13 @@ model UserSkill {
 model Project {
   id                 String             @id @default(cuid())
   name               String
-  description        String             @db.Text
+  description        String            
   role               String             // e.g. "Lead Developer"
   projectUrl         String?
   startDate          DateTime
   endDate            DateTime?
   
-  verificationStatus VerificationStatus @default(UNVERIFIED)
+  verificationStatus String @default("UNVERIFIED")
 
   freelancerId       String
   freelancer         User               @relation("FreelancerProjects", fields: [freelancerId], references: [id], onDelete: Cascade)
@@ -166,7 +149,7 @@ model ProjectDeliverable {
   project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   
   title       String
-  description String?  @db.Text
+  description String? 
   url         String?
   
   createdAt   DateTime @default(now())
@@ -180,7 +163,7 @@ model VerificationRequest {
   clientEmail String
   token       String   @unique
   status      String   @default("PENDING") // PENDING, APPROVED, REJECTED
-  message     String?  @db.Text
+  message     String? 
   
   expiresAt   DateTime
   createdAt   DateTime @default(now())
@@ -197,8 +180,8 @@ model Verification {
   verifiedById   String
   verifiedBy     User     @relation("VerifiedByClient", fields: [verifiedById], references: [id])
   
-  projectVersion String   @db.Text // JSON snapshot or hash of the project at time of verification
-  auditLog       String?  @db.Text // JSON string for any audit history
+  projectVersion String   // JSON snapshot or hash of the project at time of verification
+  auditLog       String?  // JSON string for any audit history
   
   verifiedAt     DateTime @default(now())
 }
@@ -212,7 +195,7 @@ model Review {
   communication Int?   // e.g. 1-5
   quality       Int?   // e.g. 1-5
   reliability   Int?   // e.g. 1-5
-  text        String?  @db.Text
+  text        String? 
   isPublic    Boolean  @default(true)
   
   createdAt   DateTime @default(now())
@@ -224,9 +207,9 @@ model Notification {
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   
-  type      NotificationType
+  type      String
   title     String
-  message   String   @db.Text
+  message   String  
   read      Boolean  @default(false)
   link      String?
   
@@ -238,7 +221,7 @@ model Report {
   targetType   String   // "PROJECT", "PROFILE", "REVIEW", "VERIFICATION"
   targetId     String
   reason       String
-  details      String?  @db.Text
+  details      String? 
   status       String   @default("PENDING") // PENDING, RESOLVED, DISMISSED
   
   reportedById String
@@ -255,12 +238,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -283,3 +266,4 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+

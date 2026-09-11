@@ -1,59 +1,67 @@
 import { UserPlus, FilePlus, ShieldCheck, Share2 } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function HowItWorks() {
   const steps = [
     {
-      title: "1. Create Profile",
+      step: "Step 01",
+      title: "Create Profile",
       description: "Sign up and set up your professional freelancer identity.",
       icon: UserPlus,
     },
     {
-      title: "2. Add Project",
+      step: "Step 02",
+      title: "Add Project",
       description: "Add details about the work you completed and your role.",
       icon: FilePlus,
     },
     {
-      title: "3. Request Verification",
+      step: "Step 03",
+      title: "Request Verification",
       description: "Send a secure link to your client to verify your work.",
       icon: ShieldCheck,
     },
     {
-      title: "4. Share Proof",
+      step: "Step 04",
+      title: "Share Proof",
       description: "Share your verified portfolio with future clients and recruiters.",
       icon: Share2,
     },
   ];
 
   return (
-    <section id="how-it-works" className="w-full py-24 md:py-32">
-      <div className="container px-4 md:px-6 max-w-7xl mx-auto">
-        <div className="flex flex-col items-center text-center space-y-4 mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">How It Works</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl">
-            A simple 4-step process to build your verified professional reputation.
+    <section id="how-it-works" className="w-full py-20 md:py-28 bg-[#FAFAF8]">
+      <div className="container px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col items-center text-center space-y-3 mb-16">
+          <span className="text-[12px] font-semibold tracking-[1.5px] text-[#075E63] uppercase">
+            HOW IT WORKS
+          </span>
+          <h2 className="font-serif text-3xl md:text-5xl font-semibold text-[#073F48] tracking-tight">
+            From Real Work to Verified Proof
+          </h2>
+          <p className="text-[16px] text-[#4E5B60] max-w-2xl font-normal leading-relaxed">
+            A simple 4-step process to transform your past deliverables into unquestionable professional credibility.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-          {/* Connecting line for desktop */}
-          <div className="hidden lg:block absolute top-12 left-[12.5%] right-[12.5%] h-0.5 bg-border/60 -z-10" />
-
-          {steps.map((step, i) => (
-            <Card key={i} className="glass border-primary/10 relative overflow-hidden group hover:border-primary/30 transition-colors">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <CardHeader className="text-center pb-4 pt-8">
-                <div className="mx-auto bg-background p-4 rounded-full border border-border shadow-sm mb-4">
-                  <step.icon className="w-8 h-8 text-primary" />
-                </div>
-                <CardTitle className="text-xl">{step.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <CardDescription className="text-base text-foreground/70">
-                  {step.description}
-                </CardDescription>
-              </CardContent>
-            </Card>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+          {steps.map((item, i) => (
+            <div
+              key={i}
+              className="bg-white border border-[#E7E4DF] rounded-[10px] p-6 sm:p-7 shadow-[0_4px_18px_rgba(20,40,50,0.03)] hover:-translate-y-1 transition-all duration-200 flex flex-col items-center text-center group"
+            >
+              <div className="w-14 h-14 rounded-full bg-[#F1F8F7] border border-[#075E63]/15 text-[#075E63] group-hover:bg-[#075E63] group-hover:text-white transition-colors flex items-center justify-center mb-5 shadow-xs">
+                <item.icon className="w-6 h-6 stroke-[1.8]" />
+              </div>
+              <span className="text-[11px] font-bold text-[#075E63] bg-[#E8F8F5] px-2.5 py-0.5 rounded-full mb-3 uppercase tracking-wider">
+                {item.step}
+              </span>
+              <h3 className="font-serif text-xl font-bold text-[#073F48] mb-2">
+                {item.title}
+              </h3>
+              <p className="text-[14px] text-[#6B7375] leading-relaxed">
+                {item.description}
+              </p>
+            </div>
           ))}
         </div>
       </div>

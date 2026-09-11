@@ -8,7 +8,7 @@ import { FinalCTA } from "@/components/sections/FinalCTA";
 
 export default function Home() {
   return (
-    <div className="flex flex-col w-full min-h-screen">
+    <div className="flex flex-col w-full min-h-screen bg-[#FAFAF8] text-[#17324D]">
       <Hero />
       <Trust />
       <HowItWorks />

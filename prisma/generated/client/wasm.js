@@ -116,9 +116,6 @@ Prisma.NullTypes = {
  */
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
-  ReadUncommitted: 'ReadUncommitted',
-  ReadCommitted: 'ReadCommitted',
-  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -294,37 +291,11 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-};
-
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.Role = exports.$Enums.Role = {
-  FREELANCER: 'FREELANCER',
-  CLIENT: 'CLIENT',
-  ADMIN: 'ADMIN'
-};
 
-exports.VerificationStatus = exports.$Enums.VerificationStatus = {
-  UNVERIFIED: 'UNVERIFIED',
-  PENDING: 'PENDING',
-  VERIFIED: 'VERIFIED',
-  REJECTED: 'REJECTED'
-};
-
-exports.NotificationType = exports.$Enums.NotificationType = {
-  INFO: 'INFO',
-  VERIFICATION_REQUESTED: 'VERIFICATION_REQUESTED',
-  VERIFICATION_APPROVED: 'VERIFICATION_APPROVED',
-  VERIFICATION_REJECTED: 'VERIFICATION_REJECTED',
-  SYSTEM_ALERT: 'SYSTEM_ALERT',
-  REVIEW_REQUESTED: 'REVIEW_REQUESTED',
-  REVIEW_RECEIVED: 'REVIEW_RECEIVED'
-};
 
 exports.Prisma.ModelName = {
   User: 'User',
