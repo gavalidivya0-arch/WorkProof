@@ -20,9 +20,6 @@ export default function RegisterPage() {
   
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
-    defaultValues: {
-      role: "FREELANCER",
-    },
   });
 
   const onSubmit = async (data: z.infer<typeof registerSchema>) => {
@@ -58,25 +55,6 @@ export default function RegisterPage() {
                 </div>
               )}
               
-              <div className="space-y-2">
-                <Label htmlFor="role">I am a...</Label>
-                <div className="grid grid-cols-2 gap-4">
-                  <Label
-                    className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground [&:has(:checked)]:border-primary [&:has(:checked)]:bg-accent cursor-pointer"
-                  >
-                    <input type="radio" value="FREELANCER" className="sr-only" {...register("role")} />
-                    Freelancer
-                  </Label>
-                  <Label
-                    className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground [&:has(:checked)]:border-primary [&:has(:checked)]:bg-accent cursor-pointer"
-                  >
-                    <input type="radio" value="CLIENT" className="sr-only" {...register("role")} />
-                    Client
-                  </Label>
-                </div>
-                {errors.role && <p className="text-sm text-destructive">{errors.role.message}</p>}
-              </div>
-
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
                 <Input id="name" placeholder="John Doe" {...register("name")} />

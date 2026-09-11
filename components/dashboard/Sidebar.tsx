@@ -37,7 +37,7 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
     }
   };
 
-  const primaryNavItems = [
+  let primaryNavItems = [
     {
       label: "Discover",
       href: role === "CLIENT" ? "/client" : role === "ADMIN" ? "/admin" : "/dashboard",
@@ -60,6 +60,17 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
       active: pathname.startsWith("/talent"),
     },
   ];
+
+  if (role === "UNASSIGNED") {
+    primaryNavItems = [
+      {
+        label: "Dashboard",
+        href: "/dashboard",
+        icon: Compass,
+        active: pathname === "/dashboard",
+      },
+    ];
+  }
 
   // Secondary items based on role so all existing platform features remain fully reachable
   const freelancerSecondaryItems = [
@@ -138,7 +149,9 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
   ];
 
   const secondaryNavItems =
-    role === "CLIENT"
+    role === "UNASSIGNED"
+      ? []
+      : role === "CLIENT"
       ? clientSecondaryItems
       : role === "ADMIN"
       ? adminSecondaryItems

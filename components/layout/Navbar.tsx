@@ -49,7 +49,9 @@ export async function Navbar() {
               <>
                 <Link
                   href={
-                    session.user.role === "CLIENT"
+                    session.user.role === "UNASSIGNED"
+                      ? "/onboarding"
+                      : session.user.role === "CLIENT"
                       ? "/client"
                       : session.user.role === "ADMIN"
                       ? "/admin"
@@ -58,7 +60,7 @@ export async function Navbar() {
                   className="flex items-center gap-1.5 text-[13.5px] font-medium text-[#075E63] hover:bg-[#F1F8F7] px-3.5 py-2 rounded-[6px] transition-colors"
                 >
                   <LayoutDashboard className="w-4 h-4" />
-                  <span>Dashboard</span>
+                  <span>{session.user.role === "UNASSIGNED" ? "Continue" : "Dashboard"}</span>
                 </Link>
 
                 <form
@@ -95,10 +97,10 @@ export async function Navbar() {
           </nav>
 
           <Link
-            href={session?.user ? "/dashboard" : "/register"}
+            href={session?.user ? (session.user.role === "UNASSIGNED" ? "/onboarding" : "/dashboard") : "/register"}
             className="md:hidden bg-[#075E63] text-white text-xs font-medium px-3.5 py-2 rounded-[6px]"
           >
-            {session?.user ? "Dashboard" : "Get Verified"}
+            {session?.user ? (session.user.role === "UNASSIGNED" ? "Continue" : "Dashboard") : "Get Verified"}
           </Link>
         </div>
       </div>

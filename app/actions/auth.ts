@@ -13,7 +13,7 @@ export async function registerUser(data: z.infer<typeof registerSchema>) {
     return { error: "Invalid data provided." };
   }
 
-  const { name, email, password, role } = parsed.data;
+  const { name, email, password } = parsed.data;
 
   const reqHeaders = await headers();
   const ip = reqHeaders.get("x-forwarded-for") || "unknown";
@@ -38,7 +38,7 @@ export async function registerUser(data: z.infer<typeof registerSchema>) {
         name: name,
         email: email,
         password: hashedPassword,
-        role: role,
+        role: "UNASSIGNED",
       },
     });
 

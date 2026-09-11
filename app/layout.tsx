@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { MarketingLayoutWrapper } from "@/components/layout/MarketingLayoutWrapper";
+import { AuthProvider } from "@/components/providers/AuthProvider";
 import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
@@ -29,9 +30,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col font-sans">
-        <MarketingLayoutWrapper navbar={<Navbar />} footer={<Footer />}>
-          {children}
-        </MarketingLayoutWrapper>
+        <AuthProvider>
+          <MarketingLayoutWrapper navbar={<Navbar />} footer={<Footer />}>
+            {children}
+          </MarketingLayoutWrapper>
+        </AuthProvider>
         <Toaster position="bottom-right" theme="system" />
       </body>
     </html>

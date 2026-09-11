@@ -73,12 +73,14 @@ export function TopNav({ user, unreadCount = 0 }: TopNavProps) {
           </Link>
         </nav>
 
-        {/* Action Button: Get Started / Get Verified */}
+        {/* Action Button: Get Started / Get Verified / Continue */}
         <Link
-          href={user ? "/dashboard/projects/new" : "/register"}
+          href={user?.role === "UNASSIGNED" ? "/onboarding" : user ? "/dashboard/projects/new" : "/register"}
           className="bg-[#075E63] hover:bg-[#064e52] active:scale-[0.98] text-white text-[13.5px] font-medium px-5 py-2.5 rounded-[6px] transition-all shadow-sm flex items-center gap-1.5 cursor-pointer"
         >
-          {user ? (
+          {user?.role === "UNASSIGNED" ? (
+            <span>Continue</span>
+          ) : user ? (
             <>
               <PlusCircle className="w-4 h-4" />
               <span>Get Verified</span>

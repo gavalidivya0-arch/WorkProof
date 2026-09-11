@@ -22,7 +22,7 @@ export const authConfig = {
            if (role === 'FREELANCER') return Response.redirect(new URL('/dashboard', nextUrl));
            if (role === 'CLIENT') return Response.redirect(new URL('/client', nextUrl));
            if (role === 'ADMIN') return Response.redirect(new URL('/admin', nextUrl));
-           return Response.redirect(new URL('/dashboard', nextUrl)); // fallback
+           return Response.redirect(new URL('/dashboard', nextUrl)); // fallback for UNASSIGNED
         }
       }
       return true;
@@ -36,9 +36,12 @@ export const authConfig = {
       }
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.role = (user as any).role;
+      }
+      if (trigger === 'update' && session?.role) {
+        token.role = session.role;
       }
       return token;
     }
