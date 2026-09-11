@@ -31,9 +31,9 @@ export default async function TalentPage({ searchParams }: PageProps) {
       ...(q
         ? {
             OR: [
-              { name: { contains: q, mode: "insensitive" } },
-              { username: { contains: q, mode: "insensitive" } },
-              { profile: { title: { contains: q, mode: "insensitive" } } },
+              { name: { contains: q } },
+              { username: { contains: q } },
+              { profile: { title: { contains: q } } },
             ],
           }
         : {}),
@@ -61,7 +61,7 @@ export default async function TalentPage({ searchParams }: PageProps) {
   });
 
   // 2. Post-Query Aggregations & Filtering
-  let mappedUsers: TalentUser[] = users.map((user) => {
+  let mappedUsers: TalentUser[] = users.map((user: any) => {
     const verifiedProjects = user.projectsAsFreelancer.filter(
       (p: any) => p.verificationStatus === "VERIFIED"
     );
