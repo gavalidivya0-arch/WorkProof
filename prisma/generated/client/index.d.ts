@@ -2356,6 +2356,7 @@ export namespace Prisma {
     image: string | null
     password: string | null
     role: string | null
+    gender: string | null
     status: string | null
     plan: string | null
     orgId: string | null
@@ -2372,6 +2373,7 @@ export namespace Prisma {
     image: string | null
     password: string | null
     role: string | null
+    gender: string | null
     status: string | null
     plan: string | null
     orgId: string | null
@@ -2388,6 +2390,7 @@ export namespace Prisma {
     image: number
     password: number
     role: number
+    gender: number
     status: number
     plan: number
     orgId: number
@@ -2406,6 +2409,7 @@ export namespace Prisma {
     image?: true
     password?: true
     role?: true
+    gender?: true
     status?: true
     plan?: true
     orgId?: true
@@ -2422,6 +2426,7 @@ export namespace Prisma {
     image?: true
     password?: true
     role?: true
+    gender?: true
     status?: true
     plan?: true
     orgId?: true
@@ -2438,6 +2443,7 @@ export namespace Prisma {
     image?: true
     password?: true
     role?: true
+    gender?: true
     status?: true
     plan?: true
     orgId?: true
@@ -2527,6 +2533,7 @@ export namespace Prisma {
     image: string | null
     password: string | null
     role: string
+    gender: string | null
     status: string
     plan: string
     orgId: string | null
@@ -2560,6 +2567,7 @@ export namespace Prisma {
     image?: boolean
     password?: boolean
     role?: boolean
+    gender?: boolean
     status?: boolean
     plan?: boolean
     orgId?: boolean
@@ -2587,6 +2595,7 @@ export namespace Prisma {
     image?: boolean
     password?: boolean
     role?: boolean
+    gender?: boolean
     status?: boolean
     plan?: boolean
     orgId?: boolean
@@ -2604,6 +2613,7 @@ export namespace Prisma {
     image?: boolean
     password?: boolean
     role?: boolean
+    gender?: boolean
     status?: boolean
     plan?: boolean
     orgId?: boolean
@@ -2651,6 +2661,7 @@ export namespace Prisma {
       image: string | null
       password: string | null
       role: string
+      gender: string | null
       status: string
       plan: string
       orgId: string | null
@@ -3067,6 +3078,7 @@ export namespace Prisma {
     readonly image: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'String'>
+    readonly gender: FieldRef<"User", 'String'>
     readonly status: FieldRef<"User", 'String'>
     readonly plan: FieldRef<"User", 'String'>
     readonly orgId: FieldRef<"User", 'String'>
@@ -18174,6 +18186,7 @@ export namespace Prisma {
     image: 'image',
     password: 'password',
     role: 'role',
+    gender: 'gender',
     status: 'status',
     plan: 'plan',
     orgId: 'orgId',
@@ -18451,6 +18464,7 @@ export namespace Prisma {
     image?: StringNullableFilter<"User"> | string | null
     password?: StringNullableFilter<"User"> | string | null
     role?: StringFilter<"User"> | string
+    gender?: StringNullableFilter<"User"> | string | null
     status?: StringFilter<"User"> | string
     plan?: StringFilter<"User"> | string
     orgId?: StringNullableFilter<"User"> | string | null
@@ -18477,6 +18491,7 @@ export namespace Prisma {
     image?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
     role?: SortOrder
+    gender?: SortOrderInput | SortOrder
     status?: SortOrder
     plan?: SortOrder
     orgId?: SortOrderInput | SortOrder
@@ -18506,6 +18521,7 @@ export namespace Prisma {
     image?: StringNullableFilter<"User"> | string | null
     password?: StringNullableFilter<"User"> | string | null
     role?: StringFilter<"User"> | string
+    gender?: StringNullableFilter<"User"> | string | null
     status?: StringFilter<"User"> | string
     plan?: StringFilter<"User"> | string
     orgId?: StringNullableFilter<"User"> | string | null
@@ -18532,6 +18548,7 @@ export namespace Prisma {
     image?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
     role?: SortOrder
+    gender?: SortOrderInput | SortOrder
     status?: SortOrder
     plan?: SortOrder
     orgId?: SortOrderInput | SortOrder
@@ -18554,6 +18571,7 @@ export namespace Prisma {
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: StringWithAggregatesFilter<"User"> | string
+    gender?: StringNullableWithAggregatesFilter<"User"> | string | null
     status?: StringWithAggregatesFilter<"User"> | string
     plan?: StringWithAggregatesFilter<"User"> | string
     orgId?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -19585,6 +19603,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     createdAt?: Date | string
@@ -19610,6 +19629,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     orgId?: string | null
@@ -19635,6 +19655,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19660,6 +19681,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19685,6 +19707,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     orgId?: string | null
@@ -19701,6 +19724,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19716,6 +19740,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20940,6 +20965,7 @@ export namespace Prisma {
     image?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    gender?: SortOrder
     status?: SortOrder
     plan?: SortOrder
     orgId?: SortOrder
@@ -20956,6 +20982,7 @@ export namespace Prisma {
     image?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    gender?: SortOrder
     status?: SortOrder
     plan?: SortOrder
     orgId?: SortOrder
@@ -20972,6 +20999,7 @@ export namespace Prisma {
     image?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    gender?: SortOrder
     status?: SortOrder
     plan?: SortOrder
     orgId?: SortOrder
@@ -23434,6 +23462,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     createdAt?: Date | string
@@ -23458,6 +23487,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     orgId?: string | null
@@ -23498,6 +23528,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23522,6 +23553,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23546,6 +23578,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     createdAt?: Date | string
@@ -23570,6 +23603,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     createdAt?: Date | string
@@ -23622,6 +23656,7 @@ export namespace Prisma {
     image?: StringNullableFilter<"User"> | string | null
     password?: StringNullableFilter<"User"> | string | null
     role?: StringFilter<"User"> | string
+    gender?: StringNullableFilter<"User"> | string | null
     status?: StringFilter<"User"> | string
     plan?: StringFilter<"User"> | string
     orgId?: StringNullableFilter<"User"> | string | null
@@ -23717,6 +23752,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     createdAt?: Date | string
@@ -23741,6 +23777,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     orgId?: string | null
@@ -23800,6 +23837,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23824,6 +23862,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23873,6 +23912,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     createdAt?: Date | string
@@ -23897,6 +23937,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     orgId?: string | null
@@ -23926,6 +23967,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     createdAt?: Date | string
@@ -23950,6 +23992,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     orgId?: string | null
@@ -24113,6 +24156,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24137,6 +24181,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24172,6 +24217,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24196,6 +24242,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24738,6 +24785,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     createdAt?: Date | string
@@ -24762,6 +24810,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     orgId?: string | null
@@ -24853,6 +24902,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24877,6 +24927,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24997,6 +25048,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     createdAt?: Date | string
@@ -25021,6 +25073,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     orgId?: string | null
@@ -25061,6 +25114,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25085,6 +25139,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25109,6 +25164,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     createdAt?: Date | string
@@ -25133,6 +25189,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     orgId?: string | null
@@ -25173,6 +25230,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25197,6 +25255,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25221,6 +25280,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     createdAt?: Date | string
@@ -25245,6 +25305,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     orgId?: string | null
@@ -25285,6 +25346,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25309,6 +25371,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25333,6 +25396,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     createdAt?: Date | string
@@ -25357,6 +25421,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     orgId?: string | null
@@ -25397,6 +25462,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25421,6 +25487,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     orgId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25805,6 +25872,7 @@ export namespace Prisma {
     image?: string | null
     password?: string | null
     role?: string
+    gender?: string | null
     status?: string
     plan?: string
     createdAt?: Date | string
@@ -25820,6 +25888,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25844,6 +25913,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25868,6 +25938,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     plan?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

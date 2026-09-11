@@ -19,4 +19,5 @@ export const registerSchema = z.object({
   password: z.string().min(6, {
     message: "Password must be at least 6 characters.",
   }),
+  gender: z.enum(["MALE", "FEMALE", "OTHER"]).optional(),
 });

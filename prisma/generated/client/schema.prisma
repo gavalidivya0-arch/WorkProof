@@ -20,6 +20,7 @@ model User {
   image         String?
   password      String?
   role          String    @default("FREELANCER")
+  gender        String? // MALE, FEMALE, OTHER
   status        String    @default("ACTIVE") // ACTIVE, SUSPENDED
   plan          String    @default("FREE") // FREE, PRO, BUSINESS
 

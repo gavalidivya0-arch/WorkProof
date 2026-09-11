@@ -13,7 +13,7 @@ export async function registerUser(data: z.infer<typeof registerSchema>) {
     return { error: "Invalid data provided." };
   }
 
-  const { name, email, password } = parsed.data;
+  const { name, email, password, gender } = parsed.data;
 
   const reqHeaders = await headers();
   const ip = reqHeaders.get("x-forwarded-for") || "unknown";
@@ -33,12 +33,21 @@ export async function registerUser(data: z.infer<typeof registerSchema>) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    let imageUrl = `https://api.dicebear.com/9.x/bottts/svg?seed=${name}`;
+    if (gender === "MALE") {
+      imageUrl = `https://avatar.iran.liara.run/public/boy?username=${name}`;
+    } else if (gender === "FEMALE") {
+      imageUrl = `https://avatar.iran.liara.run/public/girl?username=${name}`;
+    }
+
     const user = await prisma.user.create({
       data: {
         name: name,
         email: email,
         password: hashedPassword,
         role: "UNASSIGNED",
+        gender: gender,
+        image: imageUrl,
       },
     });
 

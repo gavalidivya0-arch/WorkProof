@@ -105,7 +105,6 @@ export function TopNav({ user, unreadCount = 0 }: TopNavProps) {
         {/* User Account Dropdown */}
         {user ? (
           <DropdownMenu>
-            {/* @ts-ignore - Base UI typing */}
             <DropdownMenuTrigger className="relative h-9 w-9 rounded-full focus:outline-none focus:ring-2 focus:ring-[#075E63]/30 cursor-pointer">
               <Avatar className="h-9 w-9 border border-[#E7E4DF] shadow-xs">
                 <AvatarImage src={user?.image || ""} alt={user?.name || "User"} />

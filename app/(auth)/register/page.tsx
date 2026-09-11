@@ -20,6 +20,9 @@ export default function RegisterPage() {
   
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
+    defaultValues: {
+      gender: "OTHER",
+    }
   });
 
   const onSubmit = async (data: z.infer<typeof registerSchema>) => {
@@ -59,6 +62,31 @@ export default function RegisterPage() {
                 <Label htmlFor="name">Full Name</Label>
                 <Input id="name" placeholder="John Doe" {...register("name")} />
                 {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="gender">Gender</Label>
+                <div className="grid grid-cols-3 gap-3">
+                  <Label
+                    className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-3 text-sm hover:bg-accent hover:text-accent-foreground [&:has(:checked)]:border-primary [&:has(:checked)]:bg-accent cursor-pointer"
+                  >
+                    <input type="radio" value="MALE" className="sr-only" {...register("gender")} />
+                    Male
+                  </Label>
+                  <Label
+                    className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-3 text-sm hover:bg-accent hover:text-accent-foreground [&:has(:checked)]:border-primary [&:has(:checked)]:bg-accent cursor-pointer"
+                  >
+                    <input type="radio" value="FEMALE" className="sr-only" {...register("gender")} />
+                    Female
+                  </Label>
+                  <Label
+                    className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-3 text-sm hover:bg-accent hover:text-accent-foreground [&:has(:checked)]:border-primary [&:has(:checked)]:bg-accent cursor-pointer"
+                  >
+                    <input type="radio" value="OTHER" className="sr-only" {...register("gender")} />
+                    Other
+                  </Label>
+                </div>
+                {errors.gender && <p className="text-sm text-destructive">{errors.gender.message}</p>}
               </div>
 
               <div className="space-y-2">
