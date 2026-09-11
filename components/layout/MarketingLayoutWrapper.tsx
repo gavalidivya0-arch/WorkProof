@@ -17,8 +17,13 @@ export function MarketingLayoutWrapper({
     pathname.startsWith("/dashboard") ||
     pathname.startsWith("/client") ||
     pathname.startsWith("/admin");
+    
+  const isAuthRoute = 
+    pathname.startsWith("/login") || 
+    pathname.startsWith("/register") || 
+    pathname.startsWith("/verify-email");
 
-  if (isDashboardRoute) {
+  if (isDashboardRoute || isAuthRoute) {
     return <>{children}</>;
   }
 
