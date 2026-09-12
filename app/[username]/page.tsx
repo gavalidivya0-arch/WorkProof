@@ -173,7 +173,7 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
           <div className={hasSidebarContent ? "md:col-span-2 space-y-10" : "space-y-10 max-w-2xl mx-auto w-full"}>
             {/* Verified Portfolio */}
             <section className="space-y-4">
-              <div className="flex items-center gap-2">
+              <div className={`flex items-center gap-2${hasSidebarContent ? "" : " justify-center"}`}>
                 <h2 className="text-2xl font-bold text-neutral-900">Verified Projects</h2>
                 <ShieldCheck className="w-6 h-6 text-emerald-500" />
               </div>
