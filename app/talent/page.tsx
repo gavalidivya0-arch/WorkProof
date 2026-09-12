@@ -140,7 +140,7 @@ export default async function TalentPage({ searchParams }: PageProps) {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 md:px-8 -mt-8">
+      <div className="max-w-6xl mx-auto px-4 md:px-8 mt-8">
         <div className="flex flex-col md:flex-row gap-8">
           
           <aside className="w-full md:w-72 shrink-0">
