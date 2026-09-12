@@ -50,6 +50,7 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
   const verifiedProjects = allProjects.filter((p: any) => p.verificationStatus === "VERIFIED");
   const otherProjects = allProjects.filter((p: any) => p.verificationStatus !== "VERIFIED");
   const clientReviewsCount = allProjects.filter((p: any) => p.review).length;
+  const hasSidebarContent = !!user.profile?.bio || (user.userSkills && user.userSkills.length > 0);
 
   return (
     <div className="min-h-screen bg-neutral-50/50 text-foreground pb-24 font-sans">
@@ -142,32 +143,34 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
           </div>
         </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Sidebar */}
-          <div className="space-y-8 md:col-span-1 min-h-0">
-            {user.profile?.bio && (
-              <section className="bg-white rounded-xl p-6 shadow-sm border border-neutral-200">
-                <h3 className="font-semibold text-neutral-900 mb-4">About</h3>
-                <p className="text-neutral-600 text-sm whitespace-pre-wrap leading-relaxed">{user.profile.bio}</p>
-              </section>
-            )}
+        <div className={hasSidebarContent ? "grid grid-cols-1 md:grid-cols-3 gap-8" : "flex flex-col gap-8"}>
+          {/* Sidebar — only rendered when it has content */}
+          {hasSidebarContent && (
+            <div className="space-y-8 md:col-span-1">
+              {user.profile?.bio && (
+                <section className="bg-white rounded-xl p-6 shadow-sm border border-neutral-200">
+                  <h3 className="font-semibold text-neutral-900 mb-4">About</h3>
+                  <p className="text-neutral-600 text-sm whitespace-pre-wrap leading-relaxed">{user.profile.bio}</p>
+                </section>
+              )}
 
-            {user.userSkills && user.userSkills.length > 0 && (
-              <section className="bg-white rounded-xl p-6 shadow-sm border border-neutral-200">
-                <h3 className="font-semibold text-neutral-900 mb-4">Skills</h3>
-                <div className="flex flex-wrap gap-2">
-                  {user.userSkills.map((us: any) => (
-                    <Badge key={us.id} variant="secondary" className="bg-neutral-100 text-neutral-700 hover:bg-neutral-200">
-                      {us.skill.name}
-                    </Badge>
-                  ))}
-                </div>
-              </section>
-            )}
-          </div>
+              {user.userSkills && user.userSkills.length > 0 && (
+                <section className="bg-white rounded-xl p-6 shadow-sm border border-neutral-200">
+                  <h3 className="font-semibold text-neutral-900 mb-4">Skills</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {user.userSkills.map((us: any) => (
+                      <Badge key={us.id} variant="secondary" className="bg-neutral-100 text-neutral-700 hover:bg-neutral-200">
+                        {us.skill.name}
+                      </Badge>
+                    ))}
+                  </div>
+                </section>
+              )}
+            </div>
+          )}
 
           {/* Projects */}
-          <div className="md:col-span-2 md:col-start-2 space-y-10">
+          <div className={hasSidebarContent ? "md:col-span-2 space-y-10" : "space-y-10 max-w-2xl mx-auto w-full"}>
             {/* Verified Portfolio */}
             <section className="space-y-4">
               <div className="flex items-center gap-2">
