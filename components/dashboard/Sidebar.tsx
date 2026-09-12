@@ -236,20 +236,36 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
         <nav className="px-[16px] space-y-1">
           {secondaryNavItems.map((item) => {
             const Icon = item.icon;
-            return (
+            const isExternal = item.href.startsWith("mailto:") || item.href.startsWith("http");
+            const sharedClass = cn(
+              "group flex items-center h-[42px] px-3.5 rounded-[6px] text-[13.5px] font-medium transition-all duration-180 cursor-pointer",
+              item.active
+                ? "bg-white/15 text-white shadow-sm"
+                : "text-white/70 hover:text-white hover:bg-white/10"
+            );
+            const content = (
+              <>
+                <Icon className="w-[18px] h-[18px] stroke-[1.7] text-white/70 group-hover:text-white transition-colors mr-3" />
+                <span>{item.label}</span>
+              </>
+            );
+            return isExternal ? (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={onNavigate}
+                className={sharedClass}
+              >
+                {content}
+              </a>
+            ) : (
               <Link
                 key={item.label}
                 href={item.href}
                 onClick={onNavigate}
-                className={cn(
-                  "group flex items-center h-[42px] px-3.5 rounded-[6px] text-[13.5px] font-medium transition-all duration-180 cursor-pointer",
-                  item.active
-                    ? "bg-white/15 text-white shadow-sm"
-                    : "text-white/70 hover:text-white hover:bg-white/10"
-                )}
+                className={sharedClass}
               >
-                <Icon className="w-[18px] h-[18px] stroke-[1.7] text-white/70 group-hover:text-white transition-colors mr-3" />
-                <span>{item.label}</span>
+                {content}
               </Link>
             );
           })}
