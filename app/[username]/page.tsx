@@ -144,7 +144,7 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Sidebar */}
-          <div className="space-y-8 md:col-span-1">
+          <div className="space-y-8 md:col-span-1 min-h-0">
             {user.profile?.bio && (
               <section className="bg-white rounded-xl p-6 shadow-sm border border-neutral-200">
                 <h3 className="font-semibold text-neutral-900 mb-4">About</h3>
@@ -167,7 +167,7 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
           </div>
 
           {/* Projects */}
-          <div className="md:col-span-2 space-y-10">
+          <div className="md:col-span-2 md:col-start-2 space-y-10">
             {/* Verified Portfolio */}
             <section className="space-y-4">
               <div className="flex items-center gap-2">
