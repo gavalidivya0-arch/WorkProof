@@ -32,10 +32,9 @@ function LoginForm() {
     if (result?.error) {
       setError(result.error);
     } else {
-      // The router.refresh() will re-evaluate the middleware, 
-      // which will redirect the user to their respective dashboard based on their role.
-      router.refresh();
-      router.push("/dashboard"); // Fallback trigger
+      // Use window.location.href to guarantee a full reload which ensures
+      // middleware and server components correctly pick up the new session.
+      window.location.href = "/dashboard";
     }
   };
 

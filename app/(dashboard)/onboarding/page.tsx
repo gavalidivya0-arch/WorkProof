@@ -33,7 +33,6 @@ export default function OnboardingPage() {
       } else {
         router.push("/client");
       }
-      router.refresh();
     }
   };
 

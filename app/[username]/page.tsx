@@ -15,8 +15,13 @@ import { ReportButton } from "@/components/ReportButton";
 export default async function PublicProfilePage({ params }: { params: Promise<{ username: string }> }) {
   const { username } = await params;
 
-  const user = await prisma.user.findUnique({
-    where: { username },
+  const user = await prisma.user.findFirst({
+    where: {
+      OR: [
+        { username },
+        { id: username }
+      ]
+    },
     include: {
       profile: true,
       userSkills: {
