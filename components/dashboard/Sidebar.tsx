@@ -88,9 +88,9 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
     },
     {
       label: "About",
-      href: "/#how-it-works",
+      href: "/about",
       icon: Info,
-      active: false,
+      active: pathname === "/about",
     },
     {
       label: "Contact",
@@ -115,9 +115,9 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
     },
     {
       label: "About",
-      href: "/#how-it-works",
+      href: "/about",
       icon: Info,
-      active: false,
+      active: pathname === "/about",
     },
     {
       label: "Contact",
@@ -136,9 +136,9 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
     },
     {
       label: "About",
-      href: "/#how-it-works",
+      href: "/about",
       icon: Info,
-      active: false,
+      active: pathname === "/about",
     },
     {
       label: "Contact",
