@@ -232,6 +232,17 @@ model Report {
   updatedAt    DateTime @updatedAt
 }
 
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  status    String   @default("UNREAD") // UNREAD, READ, REPLIED
+  
+  createdAt DateTime @default(now())
+}
+
 // Auth.js required models
 model Account {
   id                String  @id @default(cuid())

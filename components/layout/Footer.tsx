@@ -37,7 +37,7 @@ export function Footer() {
             <ul className="space-y-2.5 text-[13.5px] text-[#6B7375]">
               <li><Link href="/#how-it-works" className="hover:text-[#075E63] transition-colors">Verification Guide</Link></li>
               <li><Link href="/talent" className="hover:text-[#075E63] transition-colors">Talent Directory</Link></li>
-              <li><Link href="mailto:support@workproof.com" className="hover:text-[#075E63] transition-colors">Contact Support</Link></li>
+              <li><Link href="/contact" className="hover:text-[#075E63] transition-colors">Contact Support</Link></li>
             </ul>
           </div>
 

@@ -94,9 +94,9 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
     },
     {
       label: "Contact",
-      href: "mailto:support@workproof.com",
+      href: "/contact",
       icon: Mail,
-      active: false,
+      active: pathname === "/contact",
     },
   ];
 
@@ -121,9 +121,9 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
     },
     {
       label: "Contact",
-      href: "mailto:support@workproof.com",
+      href: "/contact",
       icon: Mail,
-      active: false,
+      active: pathname === "/contact",
     },
   ];
 
@@ -142,9 +142,9 @@ export function Sidebar({ role = "FREELANCER", onNavigate, className }: SidebarP
     },
     {
       label: "Contact",
-      href: "mailto:support@workproof.com",
+      href: "/contact",
       icon: Mail,
-      active: false,
+      active: pathname === "/contact",
     },
   ];
 
