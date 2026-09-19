@@ -82,7 +82,7 @@ export default function ContactPage() {
                   <div>
                     <p className="font-medium text-neutral-900">Office</p>
                     <p className="text-neutral-500">
-                      San Francisco, CA<br />
+                      Bengaluru, India<br />
                       Remote-first company
                     </p>
                   </div>
