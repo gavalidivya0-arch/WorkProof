@@ -24,7 +24,7 @@ export function Footer() {
           <div>
             <h3 className="font-serif font-bold text-[14px] text-[#073F48] uppercase tracking-wider mb-4">Platform</h3>
             <ul className="space-y-2.5 text-[13.5px] text-[#6B7375]">
-              <li><Link href="#how-it-works" className="hover:text-[#075E63] transition-colors">How It Works</Link></li>
+              <li><Link href="/how-it-works" className="hover:text-[#075E63] transition-colors">How It Works</Link></li>
               <li><Link href="/talent" className="hover:text-[#075E63] transition-colors">Find Talent</Link></li>
               <li><Link href="#pricing" className="hover:text-[#075E63] transition-colors">Pricing</Link></li>
               <li><Link href="/login" className="hover:text-[#075E63] transition-colors">Member Sign In</Link></li>
@@ -35,7 +35,7 @@ export function Footer() {
           <div>
             <h3 className="font-serif font-bold text-[14px] text-[#073F48] uppercase tracking-wider mb-4">Resources</h3>
             <ul className="space-y-2.5 text-[13.5px] text-[#6B7375]">
-              <li><Link href="/#how-it-works" className="hover:text-[#075E63] transition-colors">Verification Guide</Link></li>
+              <li><Link href="/how-it-works" className="hover:text-[#075E63] transition-colors">Verification Guide</Link></li>
               <li><Link href="/talent" className="hover:text-[#075E63] transition-colors">Talent Directory</Link></li>
               <li><Link href="/contact" className="hover:text-[#075E63] transition-colors">Contact Support</Link></li>
             </ul>

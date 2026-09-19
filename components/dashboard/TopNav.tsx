@@ -54,7 +54,7 @@ export function TopNav({ user, unreadCount = 0 }: TopNavProps) {
         {/* Nav Links */}
         <nav className="hidden lg:flex items-center gap-6 text-[13.5px] font-medium text-[#17324D]/80">
           <Link
-            href="/#how-it-works"
+            href="/how-it-works"
             className="hover:text-[#075E63] transition-colors py-1 cursor-pointer"
           >
             How It Works

@@ -22,7 +22,7 @@ export async function Navbar() {
 
           <nav className="hidden md:flex items-center space-x-7 text-[13.5px] font-medium text-[#17324D]/80">
             <Link
-              href="/#how-it-works"
+              href="/how-it-works"
               className="hover:text-[#075E63] transition-colors py-1"
             >
               How It Works
