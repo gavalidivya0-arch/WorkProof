@@ -20,20 +20,24 @@ export default function AboutPage() {
         </div>
 
         {/* Story Section */}
-        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div className="space-y-6">
-            <h2 className="text-3xl font-serif font-bold text-neutral-900">
+        <div className="space-y-12 pt-12 border-t border-neutral-200">
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 tracking-tight">
               The problem with traditional portfolios.
             </h2>
-            <p className="text-neutral-600 leading-relaxed">
-              Anyone can copy a website, write a fake case study, or claim they were the "lead developer" on a successful project. Clients know this, which is why they rely on long, exhausting interview processes and take-home assignments to verify skills.
-            </p>
-            <p className="text-neutral-600 leading-relaxed">
-              We realized that the best proof of your skills is the work you've already done for actual clients. But there was no easy way to cryptographically prove it. That's why we built WorkProof.
-            </p>
           </div>
-          <div className="bg-emerald-50 rounded-3xl p-8 lg:p-12 border border-emerald-100">
-            <div className="space-y-6">
+          
+          <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="space-y-6 text-lg">
+              <p className="text-neutral-600 leading-relaxed">
+                Anyone can copy a website, write a fake case study, or claim they were the "lead developer" on a successful project. Clients know this, which is why they rely on long, exhausting interview processes and take-home assignments to verify skills.
+              </p>
+              <p className="text-neutral-600 leading-relaxed">
+                We realized that the best proof of your skills is the work you've already done for actual clients. But there was no easy way to cryptographically prove it. That's why we built WorkProof.
+              </p>
+            </div>
+            <div className="bg-emerald-50 rounded-3xl p-8 lg:p-12 border border-emerald-100">
+              <div className="space-y-6">
               <div className="flex items-start gap-4">
                 <div className="mt-1 bg-white p-2 rounded-full shadow-sm text-red-500">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
