@@ -69,8 +69,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="font-medium text-neutral-900">Email Us</p>
-                    <a href="mailto:support@workproof.com" className="text-neutral-500 hover:text-emerald-600 transition-colors">
-                      support@workproof.com
+                    <a href="mailto:workproof19@gmail.com" className="text-neutral-500 hover:text-emerald-600 transition-colors">
+                      workproof19@gmail.com
                     </a>
                   </div>
                 </div>
