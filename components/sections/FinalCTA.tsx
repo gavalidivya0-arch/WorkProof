@@ -32,7 +32,7 @@ export function FinalCTA() {
 
           <Link
             href="/talent"
-            className="border border-white/30 hover:border-white/60 hover:bg-white/10 active:scale-[0.98] text-white text-[14px] font-medium h-[48px] px-7 rounded-[6px] transition-all cursor-pointer"
+            className="border-2 border-white/40 hover:border-white/70 hover:bg-white/10 active:scale-[0.98] text-white text-[14px] font-medium h-[48px] px-7 rounded-[6px] transition-all flex items-center justify-center cursor-pointer"
           >
             Explore Talent Directory
           </Link>
