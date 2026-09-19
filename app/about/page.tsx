@@ -8,7 +8,7 @@ export default function AboutPage() {
         
         {/* Header Section */}
         <div className="text-center space-y-6 max-w-3xl mx-auto">
-          <span className="inline-block text-[12px] font-semibold tracking-[1.5px] text-emerald-600 uppercase">
+          <span className="inline-block text-[14px] font-bold font-serif tracking-[2px] text-emerald-600 uppercase">
             Our Mission
           </span>
           <h1 className="text-4xl md:text-6xl font-serif font-bold text-neutral-900 tracking-tight leading-tight">
