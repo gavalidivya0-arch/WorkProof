@@ -50,6 +50,7 @@ model User {
 
   notifications        Notification[]
   submittedReports     Report[] @relation("UserReports")
+  adminAuditLogs       AdminAuditLog[]
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -238,9 +239,18 @@ model ContactMessage {
   email     String
   subject   String?
   message   String
-  status    String   @default("UNREAD") // UNREAD, READ, REPLIED
-  
   createdAt DateTime @default(now())
+}
+
+model AdminAuditLog {
+  id          String   @id @default(cuid())
+  adminId     String
+  admin       User     @relation(fields: [adminId], references: [id])
+  action      String
+  targetType  String?
+  targetId    String?
+  metadata    String?  // JSON string for extra details
+  timestamp   DateTime @default(now())
 }
 
 // Auth.js required models

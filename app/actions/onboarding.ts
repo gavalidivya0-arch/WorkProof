@@ -10,6 +10,10 @@ export async function assignRole(role: "FREELANCER" | "CLIENT") {
     return { error: "You must be logged in to do this." };
   }
 
+  if (role !== "FREELANCER" && role !== "CLIENT") {
+    return { error: "Invalid role selected." };
+  }
+
   try {
     await prisma.user.update({
       where: {
