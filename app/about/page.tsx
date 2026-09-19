@@ -59,6 +59,7 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
+        </div>
 
         {/* Stats / Value Props */}
         <div className="grid sm:grid-cols-3 gap-8 py-12 border-y border-neutral-200">
