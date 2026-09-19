@@ -25,7 +25,7 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String?
-  role          String      @default("FREELANCER")
+  role          String      @default("UNASSIGNED")
   gender        String?     // MALE, FEMALE, OTHER
   status        String    @default("ACTIVE") // ACTIVE, SUSPENDED
   plan          String    @default("FREE") // FREE, PRO, BUSINESS
