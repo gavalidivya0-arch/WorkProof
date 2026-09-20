@@ -20,8 +20,9 @@ In the modern gig economy, anyone can claim to have built a project. Freelancers
 - **Dynamic Trust Score:** An evolving score based on verified projects, client reviews, and profile completeness.
 - **Client Verification Flow:** One-click email verification requests sent securely to clients.
 - **AI-Powered Assistance:** Gemini AI integration to automatically enhance project descriptions and extract relevant technical skills from your resume.
-- **Role-Based Access Control (RBAC):** Distinct and secure dashboards for `FREELANCER`, `CLIENT`, and `ADMIN`.
-- **Public Profiles & QR Codes:** Share your verified portfolio via a custom URL (`/username`) or instantly generate a QR code for your resume.
+- **Strict Role-Based Access Control (RBAC):** Distinct and highly secure dashboards for `FREELANCER`, `CLIENT`, and `ADMIN`. Admin routes are protected by server-side middleware and database role validation.
+- **Secure Admin Dashboard:** Exclusive platform owner area to monitor users, projects, and platform analytics, with full audit logging (`AdminAuditLog`).
+- **Public Profiles & Dedicated Pages:** Share your verified portfolio via a custom URL (`/username`), and navigate easily via dedicated pages for `/about`, `/contact`, and `/how-it-works`.
 - **Premium UI:** A stunning, fully responsive interface built with Tailwind CSS, Shadcn UI, and Framer Motion.
 
 ---
@@ -47,6 +48,8 @@ WorkProof is built with a cutting-edge Next.js architecture, designed for scale,
 - **Project:** The core entity representing a body of work. Links to a Freelancer and optionally a VerificationRequest.
 - **VerificationRequest:** A secure, tokenized request sent to a Client to verify a specific project.
 - **Review:** A verified client's rating and feedback on a specific project.
+- **ContactMessage:** Stores messages sent securely from the `/contact` page.
+- **AdminAuditLog:** A secure audit trail tracking all actions performed by platform Administrators.
 - **Report:** Moderation system for flagging users or projects.
 
 ---
@@ -82,6 +85,9 @@ Create a `.env` file based on `.env.example`:
 cp .env.example .env
 ```
 Ensure you populate `DATABASE_URL`, `AUTH_SECRET` (generate via `npx auth secret`), and `GOOGLE_GENERATIVE_AI_API_KEY`.
+
+**To access the Admin Dashboard:**
+You must set the `ADMIN_EMAIL` environment variable to your email address (e.g., `ADMIN_EMAIL="workproof19@gmail.com"`). When you log in with this email, the system will automatically grant you `ADMIN` privileges.
 
 ### 3. Database Setup
 ```bash
