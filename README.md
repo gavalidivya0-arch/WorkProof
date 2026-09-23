@@ -52,6 +52,23 @@ WorkProof is built with a cutting-edge Next.js architecture, designed for scale,
 - **AdminAuditLog:** A secure audit trail tracking all actions performed by platform Administrators.
 - **Report:** Moderation system for flagging users or projects.
 
+### 📁 Project Structure
+The repository follows a standard Next.js App Router structure with modular components:
+```
+workproof/
+├── app/                  # Next.js App Router (pages, layouts, routes)
+│   ├── (auth)/           # Authentication pages (login, register)
+│   ├── (dashboard)/      # Protected dashboard for Freelancers/Clients
+│   ├── admin/            # Secure platform owner dashboard
+│   ├── api/              # API Routes (webhooks, etc)
+│   └── [username]/       # Dynamic public portfolio pages
+├── components/           # React components (UI, sections, layout)
+├── lib/                  # Shared utilities (prisma, auth, validations)
+├── prisma/               # Database schema and migrations
+├── public/               # Static assets (images, icons)
+└── types/                # Global TypeScript definitions
+```
+
 ---
 
 ## 🔄 User Flow (The Critical Path)
